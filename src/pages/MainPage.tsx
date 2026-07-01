@@ -1,57 +1,61 @@
+// src/pages/MainPage.tsx
 import OrbitPlanet from "../components/main/OrbitPlanet"
 import GroguSvg from "../assets/svg/GroguSvg"
 
 export default function MainPage() {
   return (
-    <div className="relative flex h-screen w-full items-center justify-center overflow-hidden  font-sans">
-      {/* 좌측~중앙 메인 섹션 - 그로구와 메인 타이틀 디스플레이 */}
-      {/* 행성이 오른쪽으로 빠지기 때문에, 살짝 왼쪽으로 마진(pr-32 등)을 주어 시각적 균형 */}
-      <div className="relative z-10 flex flex-col items-center max-w-md w-full text-center space-y-4 pointer-events-auto select-none md:pr-40 transition-all duration-500">
-        <div className="relative animate-bounce duration-2000ms filter drop-shadow-[0_0_20px_rgba(52,211,153,0.35)]">
-          <div className="absolute -inset-4 bg-emerald-400/10 rounded-full blur-2xl animate-pulse" />
-          <div className="relative hover:scale-110 active:scale-95 transition-transform duration-300 cursor-pointer">
-            <GroguSvg size={96} />
+    // 배경판
+    <div className="relative flex h-screen w-full bg-slate-800 flex-col items-center justify-between overflow-hidden font-mono text-slate-900">
+      {/* UPPER ZONE: 전방 콕핏 유리창 (그로구 코어) */}
+      <div className="flex-1 flex flex-col items-center justify-center text-center space-y-3 pointer-events-auto select-none relative w-full">
+        {/* 미세한 콕핏 타깃 조준선 가이드 */}
+        <div className="absolute w-48 h-48 border-2 border-dashed border-slate-600/30 rounded-full animate-[spin_60s_linear_infinite] pointer-events-none" />
+        <div className="animate-bounce duration-1000 filter drop-shadow-[0_4px_6px_rgba(0,0,0,0.3)]">
+          <div className="hover:scale-110 active:scale-95 transition-transform duration-200 cursor-pointer">
+            <GroguSvg size={114} />
           </div>
         </div>
 
         <div className="space-y-1">
-          <h1 className="text-4xl font-black tracking-widest bg-linear-to-r from-stone-100 via-stone-200 to-stone-400 bg-clip-text text-transparent">SKYWALKER</h1>
-          <p className="text-xs font-mono tracking-[0.3em] text-emerald-400 animate-pulse ">Grogu is cute.</p>
+          <h1 className="text-4xl font-black tracking-widest text-stone-100 drop-shadow-[0_3px_0px_rgba(15,23,42,1)]">SKYWALKER</h1>
+          <p className="text-[11px] text-emerald-400 font-bold tracking-widest">Grogu is cute.</p>
         </div>
       </div>
-      {/* 오른쪽 사이드 내비게이션 바 */}
-      {/* w-32(또는 w-36)로 가로 폭을 고정, pl-0 items-center로 정렬하여 텍스트가 튀어나와도 대칭이 깨지지 않게*/}
-      <div className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 z-10 flex flex-col items-center justify-center w-36 space-y-12 pointer-events-auto border-l border-slate-700/30 py-12 bg-slate-900/5 rounded-2xl backdrop-blur-[2px]">
-        {/* 터미널 인디케이터 라인  */}
-        <div className="absolute top-0 left-0 w-0.75 h-8 bg-cyan-400/60 animate-pulse" />
-        <div className="absolute bottom-0 left-0 w-0.75 h-8 bg-pink-400/60 animate-pulse" />
 
-        {/* 1. LUKE 포드 */}
-        <div className="relative transition-all duration-300 hover:-translate-x-2 group/luke flex flex-col items-center justify-center w-full">
-          <div className="absolute inset-0 bg-cyan-500/10 rounded-full blur-xl opacity-0 group-hover/luke:opacity-100 group-hover/luke:bg-cyan-500/20 transition-all duration-300 scale-75" />
-          {/* 글자 위치를 패널 가로 폭 밖으로(right-36) 밀어내서 행성과 겹치지 않고 보기 좋게 정렬 */}
-          <div className="absolute right-36 top-1/2 -translate-y-1/2 text-[10px] font-mono tracking-[0.2em] text-cyan-400 font-bold opacity-0 group-hover/luke:opacity-100 transition-all duration-300 translate-x-2 group-hover/luke:translate-x-0 whitespace-nowrap bg-slate-800/80 px-2 py-0.5 rounded-sm backdrop-blur-xs">
-            [ SEC_01 // Luke Skywalker ]
-          </div>
-          <OrbitPlanet to="/timer" label="LUKE" />
+      {/* LOWER ZONE: 하단 물리 제어 데스크 대시보드 */}
+      <div className="relative z-10 w-full bg-purple-100 border-t-4 border-slate-900 py-16 px-6 shadow-[0_-8px_0px_0px_rgba(15,23,42,0.15)] pointer-events-auto flex flex-col items-center">
+        {/* 패널 중앙 제어용 장식 바 */}
+        <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[9px] font-black px-4 py-0.5 rounded-full border-2 border-slate-900 tracking-widest uppercase">
+          Warp Drive Console
         </div>
 
-        {/* 2. C-3PO 포드 */}
-        <div className="relative transition-all duration-300 hover:-translate-x-2 group/c3po flex flex-col items-center justify-center w-full">
-          <div className="absolute inset-0 bg-amber-500/10 rounded-full blur-xl opacity-0 group-hover/c3po:opacity-100 group-hover/c3po:bg-amber-500/20 transition-all duration-300 scale-75" />
-          <div className="absolute right-36 top-1/2 -translate-y-1/2 text-[10px] font-mono tracking-[0.2em] text-amber-400 font-bold opacity-0 group-hover/c3po:opacity-100 transition-all duration-300 translate-x-2 group-hover/c3po:translate-x-0 whitespace-nowrap bg-slate-800/80 px-2 py-0.5 rounded-sm backdrop-blur-xs">
-            [ SEC_02 // C-3PO ]
+        <div className="flex flex-wrap items-center justify-center gap-8 max-w-4xl w-full">
+          {/* LUKE 기계식 스위치 */}
+          <div className="bg-white border-3 border-slate-900 rounded-xl p-4 min-w-68 shadow-[5px_5px_0px_0px_rgba(15,23,42,1)] hover:shadow-[1px_1px_0px_0px_rgba(15,23,42,1)] hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-150 flex items-center justify-between group/panel">
+            <OrbitPlanet to="/timer" label="SYS_01" />
+            <div className="text-right">
+              <span className="text-xs font-black block text-slate-900">LUKE_MODULE</span>
+              <span className="text-[9px] bg-cyan-100 text-cyan-700 font-bold px-1 rounded inline-block mt-1">READY</span>
+            </div>
           </div>
-          <OrbitPlanet to="/bucket" label="C-3PO" />
-        </div>
 
-        {/* 3. R2-D2 포드 */}
-        <div className="relative transition-all duration-300 hover:-translate-x-2 group/r2d2 flex flex-col items-center justify-center w-full">
-          <div className="absolute inset-0 bg-pink-500/10 rounded-full blur-xl opacity-0 group-hover/r2d2:opacity-100 group-hover/r2d2:bg-pink-500/20 transition-all duration-300 scale-75" />
-          <div className="absolute right-36 top-1/2 -translate-y-1/2 text-[10px] font-mono tracking-[0.2em] text-pink-400 font-bold opacity-0 group-hover/r2d2:opacity-100 transition-all duration-300 translate-x-2 group-hover/r2d2:translate-x-0 whitespace-nowrap bg-slate-800/80 px-2 py-0.5 rounded-sm backdrop-blur-xs">
-            [ SEC_03 // R2-D2 ]
+          {/* C-3PO 기계식 스위치 */}
+          <div className="bg-white border-3 border-slate-900 rounded-xl p-4 min-w-68 shadow-[5px_5px_0px_0px_rgba(15,23,42,1)] hover:shadow-[1px_1px_0px_0px_rgba(15,23,42,1)] hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-150 flex items-center justify-between group/panel">
+            <OrbitPlanet to="/bucket" label="SYS_02" />
+            <div className="text-right">
+              <span className="text-xs font-black block text-slate-900">C-3PO_CORES</span>
+              <span className="text-[9px] bg-amber-100 text-amber-700 font-bold px-1 rounded inline-block mt-1">ONLINE</span>
+            </div>
           </div>
-          <OrbitPlanet to="/log" label="R2-D2" />
+
+          {/* R2-D2 기계식 스위치 */}
+          <div className="bg-white border-3 border-slate-900 rounded-xl p-4 min-w-68 shadow-[5px_5px_0px_0px_rgba(15,23,42,1)] hover:shadow-[1px_1px_0px_0px_rgba(15,23,42,1)] hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-150 flex items-center justify-between group/panel">
+            <OrbitPlanet to="/log" label="SYS_03" />
+            <div className="text-right">
+              <span className="text-xs font-black block text-slate-900">R2-D2_DRIVE</span>
+              <span className="text-[9px] bg-pink-100 text-pink-700 font-bold px-1 rounded inline-block mt-1">STANDBY</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
