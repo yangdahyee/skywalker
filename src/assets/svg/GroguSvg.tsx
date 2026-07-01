@@ -2,7 +2,7 @@ interface GroguIconProps {
   size?: number // 외부에서 크기를 조절할 수 있는 옵션 (기본값 96)
 }
 
-export default function GroguIcon({ size = 96 }: GroguIconProps) {
+export default function GroguSvg({ size = 96 }: GroguIconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ imageRendering: "pixelated" }}>
       {/* 1. 양쪽 귀 */}
