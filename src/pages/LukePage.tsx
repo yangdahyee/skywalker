@@ -11,7 +11,7 @@ export default function LukePage() {
       {/* 🕹️ 콕핏 전체를 채우는 픽셀 컴포넌트 그리드 배치 */}
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl w-full px-6 pointer-events-auto">
         {/* ===================================================
-           1. [캡처 왼쪽 위] 키보드 컨트롤러 팩 (라벨링 가이드)
+           1. 키보드 컨트롤러 팩 (라벨링 가이드)
            =================================================== */}
         <div className="bg-purple-300 border-4 border-slate-950 p-4 shadow-[6px_6px_0px_0px_#0f172a] flex flex-col justify-between h-64">
           <div className="grid grid-cols-4 gap-2">
@@ -29,7 +29,7 @@ export default function LukePage() {
         </div>
 
         {/* ===================================================
-           2. [중앙 최상단] 비디오 플레이어 스타일 메인 스크린 (그로구 코어)
+           2. 비디오 플레이어 스타일 메인 스크린 (그로구 코어)
            =================================================== */}
         <div className="bg-amber-50 border-4 border-slate-950 shadow-[6px_6px_0px_0px_#0f172a] flex flex-col h-64 overflow-hidden">
           {/* 상단 윈도우 바 */}
@@ -60,7 +60,7 @@ export default function LukePage() {
         </div>
 
         {/* ===================================================
-           3. [오른쪽 계기판] 노티피케이션 & 미니 PC 인터페이스 패널
+           3. 노티피케이션 & 미니 PC 인터페이스 패널
            =================================================== */}
         <div className="bg-purple-200 border-4 border-slate-950 p-4 shadow-[6px_6px_0px_0px_#0f172a] flex flex-col justify-between h-64">
           <div className="flex justify-between items-start">
@@ -85,7 +85,7 @@ export default function LukePage() {
         </div>
 
         {/* ===================================================
-           4. [하단 왼쪽] BELIEVE 팝업 스타일 수동 기믹 창
+           4. BELIEVE 팝업 스타일 수동 기믹 창
            =================================================== */}
         <div className="bg-amber-50 border-4 border-slate-950 shadow-[6px_6px_0px_0px_#0f172a] flex flex-col h-48 overflow-hidden">
           <div className="bg-cyan-400 border-b-4 border-slate-950 px-3 py-1 flex items-center justify-between">
@@ -106,7 +106,7 @@ export default function LukePage() {
         </div>
 
         {/* ===================================================
-           5. [하단 중앙] 로딩 인디케이터 윈도우 (진짜 워프 프로그레스 바)
+           5. 로딩 인디케이터 윈도우 (진짜 워프 프로그레스 바)
            =================================================== */}
         <div className="bg-amber-50 border-4 border-slate-950 shadow-[6px_6px_0px_0px_#0f172a] flex flex-col h-48 overflow-hidden">
           <div className="bg-pink-300 border-b-4 border-slate-950 px-3 py-1 flex items-center justify-end">
@@ -114,7 +114,6 @@ export default function LukePage() {
           </div>
           <div className="flex-1 p-4 flex flex-col justify-center space-y-4">
             <div className="text-center font-black text-sm tracking-widest animate-pulse">LOADING STAGE...</div>
-            {/* 캡처 이미지 속 특유의 투박한 레드 스트라이프 로딩바 100% 싱크로 */}
             <div className="w-full bg-slate-100 border-4 border-slate-950 p-0.5">
               <div className="h-5 bg-red-500 border-r-4 border-slate-950 w-3/4 bg-[linear-gradient(45deg,#b91c1c_25%,transparent_25%,transparent_50%,#b91c1c_50%,#b91c1c_75%,transparent_75%,transparent)] bg-[size:1rem_1rem] animate-[pulse_1s_infinite]" />
             </div>
@@ -122,7 +121,7 @@ export default function LukePage() {
         </div>
 
         {/* ===================================================
-           6. [하단 오른쪽 - 핵심!] 기계식 버튼으로 리턴즈한 행성 선택기!
+           6. 기계식 버튼으로 리턴즈한 행성 선택기!
            =================================================== */}
         <div className="bg-purple-100 border-4 border-slate-950 p-4 shadow-[6px_6px_0px_0px_#0f172a] flex flex-col justify-between h-48">
           <div className="text-[10px] font-black text-purple-800 bg-purple-300/50 border border-purple-400 px-2 py-0.5 text-center">SELECT HYPER DESITINATION</div>
