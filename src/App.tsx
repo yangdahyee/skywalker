@@ -1,121 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import GroguIcon from "./components/GroguIcon"
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <div className="flex min-h-screen flex-col items-center justify-center bg-emerald-100/10 text-slate-800 antialiased px-4">
+      {/* 메인 랜딩 콘텐츠 영역 */}
+      <div className="flex flex-col items-center max-w-md w-full text-center space-y-8">
+        {/* 통통 튀는 애니메이션(animate-bounce) */}
+        <div className="animate-bounce duration-1000 iteration-count-infinite filter drop-shadow-[0_10px_15px_rgba(101,163,13,0.15)]">
+          {/* 호버 및 액티브 마이크로 인터랙션 유지 */}
+          <div className="hover:scale-110 active:scale-95 transition-transform duration-200 cursor-pointer">
+            <GroguIcon size={128} />
+          </div>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
+
+        {/* 타이틀 및 인사말 */}
+        <div className="space-y-3">
+          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl bg-linear-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">Skywalker</h1>
+          <p className="text-xl font-semibold text-emerald-600 tracking-wide animate-pulse">안녕하세요!</p>
+          <p className="text-sm text-slate-500 leading-relaxed max-w-xs mx-auto">
+            뭘 만들어 보면 좋을까요? <br />
           </p>
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      </div>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      {/* 하단 푸터 */}
+      <footer className="absolute bottom-6 text-xs text-slate-400 tracking-wider font-mono">© {new Date().getFullYear()} SKYWALKER. PROJECT START.</footer>
+    </div>
   )
 }
 
