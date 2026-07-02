@@ -18,7 +18,8 @@ function App() {
   const shouldApplyCursorNone = isSpecialCursorEnabled && !isModalOpen
 
   return (
-    <div className={`relative w-screen h-screen text-stone-100 overflow-hidden select-none ${shouldApplyCursorNone ? "cursor-none" : ""}`}>
+    // w-screen -> w-full로 변경하여 모바일 가로 스크롤바 버그 방지, h-screen 유지하되 본문 스크롤은 내부 컴포넌트(MainPage)가 제어하도록 유도
+    <div className={`relative w-full h-screen text-stone-100 overflow-x-hidden overflow-y-auto md:overflow-hidden select-none ${shouldApplyCursorNone ? "cursor-none" : ""}`}>
       <div className="relative z-10 w-full h-full">
         <Routes>
           <Route path="/" element={<MainPage />} />
@@ -31,15 +32,17 @@ function App() {
       {/* 메인페이지에서는 안 뜨게 하려는 목적 + useLocation */}
       {location.pathname !== "/" && <DesktopMenu setIsModalOpen={setIsModalOpen} />}
 
-      {/* 마우스 이펙트 레이어를 z-9999로 묶어서 화면 가장 맨 앞으로 */}
-      {/* pointer-events-none 덕분에 맨 위에 떠 있어도 밑에 있는 흰색 버튼 클릭을 방해 X. */}
-      <div className="absolute inset-0 z-9999 pointer-events-none">
+      {/* 마우스 이펙트 레이어: pointer: fine (마우스 사용 기기) 일 때만 보이도록 하거나 컴포넌트 내부에서 처리하는 것을 권장하며, 모바일 터치 오작동을 최소화하기 위해 전반적 레이어는 유지 */}
+      <div className="absolute inset-0 z-9999 pointer-events-none hidden md:block">
         {isStarfieldEnabled && <StarfieldEffect />}
         {isSpecialCursorEnabled && <LukeFullColorCursor />}
       </div>
 
+      {/* CSS 미디어 쿼리를 추가하여 모바일(터치 기기)에서는 커서 숨김 처리가 강제 적용되지 않도록 가드 추가 */}
       <style>{`
-        .cursor-none, .cursor-none * { cursor: none !important; }
+        @media (pointer: fine) {
+          .cursor-none, .cursor-none * { cursor: none !important; }
+        }
       `}</style>
     </div>
   )
