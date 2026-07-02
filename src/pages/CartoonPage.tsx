@@ -85,7 +85,7 @@ export default function CartoonPage() {
       {/* 레트로 스팟 1: 타투인 행성 */}
       <div
         ref={planet1Ref}
-        className="absolute left-[34%] top-[34%] -translate-x-1/2 -translate-y-1/2 opacity-0 scale-50 transition-all duration-300 z-10 bg-[#C5B4E3] border-[3px] border-slate-900 rounded-xl p-1 shadow-[5px_5px_0px_0px_rgba(15,23,42,1)] w-44"
+        className="absolute left-[20%] top-[34%] -translate-x-1/2 -translate-y-1/2 opacity-0 scale-50 transition-all duration-300 z-10 bg-[#C5B4E3] border-[3px] border-slate-900 rounded-xl p-1 shadow-[5px_5px_0px_0px_rgba(15,23,42,1)] w-44"
       >
         <div className="bg-slate-900 text-[#FDF2E9] text-[9px] font-mono px-2 py-0.5 rounded-t-lg flex items-center justify-between tracking-wider">
           <span>🪐 SYSTEM_01.EXE</span>
@@ -100,7 +100,7 @@ export default function CartoonPage() {
       {/* 레트로 스팟 2: 호스 기지 */}
       <div
         ref={planet2Ref}
-        className="absolute left-[66%] top-[70%] -translate-x-1/2 -translate-y-1/2 opacity-0 scale-50 transition-all duration-300 z-10 bg-[#FFC5D3] border-[3px] border-slate-900 rounded-xl p-1 shadow-[5px_5px_0px_0px_rgba(15,23,42,1)] w-44"
+        className="absolute left-[68%] top-[70%] -translate-x-1/2 -translate-y-1/2 opacity-0 scale-50 transition-all duration-300 z-10 bg-[#FFC5D3] border-[3px] border-slate-900 rounded-xl p-1 shadow-[5px_5px_0px_0px_rgba(15,23,42,1)] w-44"
       >
         <div className="bg-slate-900 text-[#FDF2E9] text-[9px] font-mono px-2 py-0.5 rounded-t-lg flex items-center justify-between tracking-wider">
           <span>❄️ SYSTEM_02.EXE</span>
