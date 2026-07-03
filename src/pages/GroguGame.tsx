@@ -100,7 +100,7 @@ export default function GroguGame() {
   }
 
   return (
-    <div className="fixed inset-0 z-[999] w-screen h-screen bg-[#0F172A] bg-[radial-gradient(#1E293B_1px,transparent_1px)] bg-[size:1.5rem_1.5rem] font-mono overflow-hidden select-none flex flex-col items-center justify-center">
+    <div className="fixed inset-0 z-[999] w-screen h-screen animate-starwars-wipe bg-[#0F172A] bg-[radial-gradient(#1E293B_1px,transparent_1px)] bg-[size:1.5rem_1.5rem] font-mono overflow-hidden select-none flex flex-col items-center justify-center">
       {/* 📺 8비트 아케이드 기계 바디 */}
       <div className="bg-[#090D16] border-[4px] border-[#4ECDC4] rounded-2xl p-1 shadow-[0_0_30px_rgba(78,205,196,0.3),8px_8px_0px_0px_rgba(0,0,0,1)] w-[400px] flex flex-col relative overflow-hidden">
         {/* 상단 전광판 */}
