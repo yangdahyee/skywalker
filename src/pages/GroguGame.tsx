@@ -100,9 +100,11 @@ export default function GroguGame() {
   }
 
   return (
-    <div className="fixed inset-0 z-[999] w-screen h-screen  bg-[#0F172A] bg-[radial-gradient(#1E293B_1px,transparent_1px)] bg-[size:1.5rem_1.5rem] font-mono overflow-hidden select-none flex flex-col items-center justify-center">
+    // w-screen 대신 w-full, h-screen 대신 min-h-screen으로 유연성을 확보하고 모바일 터치 오버플로우 방지를 위해 p-4 여백 추가.
+    <div className="fixed inset-0 z-[999] w-full min-h-screen bg-[#0F172A] bg-[radial-gradient(#1E293B_1px,transparent_1px)] bg-[size:1.5rem_1.5rem] font-mono overflow-y-auto md:overflow-hidden select-none flex flex-col items-center justify-center p-4">
       {/* 📺 8비트 아케이드 기계 바디 */}
-      <div className="bg-[#090D16] border-[4px] border-[#4ECDC4] rounded-2xl p-1 shadow-[0_0_30px_rgba(78,205,196,0.3),8px_8px_0px_0px_rgba(0,0,0,1)] w-[400px] flex flex-col relative overflow-hidden">
+      {/* 고정폭 'w-[400px]' 때문에 모바일 화면이 찢어지던 현상을 방지하고자 'w-full max-w-[400px]' */}
+      <div className="bg-[#090D16] border-[4px] border-[#4ECDC4] rounded-2xl p-1 shadow-[0_0_30px_rgba(78,205,196,0.3),8px_8px_0px_0px_rgba(0,0,0,1)] w-full max-w-[400px] flex flex-col relative overflow-hidden">
         {/* 상단 전광판 */}
         <div className="bg-[#1E293B] border-b-[4px] border-[#4ECDC4] text-[#4ECDC4] text-[11px] font-black px-4 py-2 flex items-center justify-between tracking-widest">
           <span className="animate-pulse">{isGameComplete ? "★ GAME OVER ★" : "👾 INSERT COIN [P1]"}</span>
