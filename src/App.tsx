@@ -1,11 +1,7 @@
-import { Routes, Route, useLocation } from "react-router-dom"
+import { Outlet, useLocation } from "react-router-dom"
 import { useEffectStore } from "./store/useEffectStore"
 import StarfieldEffect from "./components/common/StarfieldEffect"
 import LukeFullColorCursor from "./components/common/LuckFullColorCursor"
-import MainPage from "./pages/MainPage"
-import LukePage from "./pages/LukePage"
-import CartoonPage from "./pages/CartoonPage"
-import GroguGame from "./pages/GroguGame"
 import DesktopMenu from "./components/DesktopMenu"
 import { useState } from "react"
 
@@ -21,12 +17,7 @@ function App() {
     // w-screen -> w-full로 변경하여 모바일 가로 스크롤바 버그 방지, h-screen 유지하되 본문 스크롤은 내부 컴포넌트(MainPage)가 제어하도록 유도
     <div className={`relative w-full h-screen text-stone-100 overflow-x-hidden overflow-y-auto md:overflow-hidden select-none ${shouldApplyCursorNone ? "cursor-none" : ""}`}>
       <div className="relative z-10 w-full h-full">
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/timer" element={<LukePage />} />
-          <Route path="/bucket" element={<CartoonPage />} />
-          <Route path="/log" element={<GroguGame />} />
-        </Routes>
+        <Outlet />
       </div>
 
       {/* 메인페이지에서는 안 뜨게 하려는 목적 + useLocation */}
