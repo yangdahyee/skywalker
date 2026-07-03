@@ -4,7 +4,7 @@ import GroguSvg from "../assets/svg/GroguSvg"
 export default function LukePage() {
   return (
     // 레트로 모눈종이 격자 베이스
-    <div className="relative flex h-screen w-full items-center justify-center overflow-hidden font-mono text-slate-900 select-none">
+    <div className="relative flex bg-[#FDF2E9] h-screen w-full items-center justify-center overflow-hidden font-mono text-slate-900 select-none">
       {/* 📊 주황빛/회색빛 도트 그리드 */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#475569_1px,transparent_1px),linear-gradient(to_bottom,#475569_1px,transparent_1px)] bg-[size:1.5rem_1.5rem] opacity-20 pointer-events-none z-0" />
 
