@@ -9,7 +9,8 @@ export default function MainPage() {
     <div className="relative flex min-h-screen md:h-screen w-full bg-slate-800 flex-col items-center overflow-y-auto md:overflow-hidden font-mono text-slate-900">
       {/* UPPER ZONE: 전방 콕핏 유리창 (그로구 코어) */}
       {/* flex-1이 모바일에서 화면을 억지로 늘리지 않도록 md:flex-1로 제한하고, 모바일 스크롤 시 찌그러짐 방지를 위해 flex-none을 추가 */}
-      <div className="flex-none md:flex-1 flex flex-col items-center justify-center text-center space-y-3 pointer-events-auto select-none relative w-full py-12 md:py-0">
+      {/*  데스크탑 전용인 md:flex-none으로 격리하고, 모바일에서는 최소 높이(min-h-[40vh])를 보장. */}
+      <div className="flex-1 md:flex-none md:flex-1 min-h-[40vh] md:min-h-0 flex flex-col items-center justify-center text-center space-y-3 pointer-events-auto select-none relative w-full py-12 md:py-0">
         {/* 미세한 콕핏 타깃 조준선 가이드 - 모바일에서는 조금 더 작게 조절 */}
         <div className="absolute w-36 h-36 md:w-48 md:h-48 border-2 border-dashed border-slate-600/30 rounded-full animate-[spin_60s_linear_infinite] pointer-events-none" />
         <div className="animate-bounce duration-1000 filter drop-shadow-[0_4px_6px_rgba(0,0,0,0.3)]">
@@ -26,6 +27,7 @@ export default function MainPage() {
 
       {/* LOWER ZONE: 하단 물리 제어 데스크 대시보드 */}
       {/* mt-auto를 md:mt-auto로 변경하여 모바일에서 강제 부착 현상을 해제하고, 모바일 바닥면 여백(pb-16) 확보 및 shrink-0을 추가해 잘림 해결 */}
+      {/* mt-auto 가 모바일 컨텐츠를 밖으로 밀어내지 않도록  md:mt-auto로. */}
       <div className="relative z-10 w-full bg-purple-100 border-t-4 border-slate-900 py-8 pb-16 px-4 md:py-16 md:px-6 shadow-[0_-8px_0px_0px_rgba(15,23,42,0.15)] pointer-events-auto flex flex-col items-center md:mt-auto shrink-0">
         {/* 패널 중앙 제어용 장식 바 */}
         <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[9px] font-black px-4 py-0.5 rounded-full border-2 border-slate-900 tracking-widest uppercase whitelist">
@@ -44,7 +46,6 @@ export default function MainPage() {
               <span className="text-[11px] bg-cyan-100 text-cyan-700 font-bold px-1 rounded inline-block mt-1">READY</span>
             </div>
           </div>
-          
           {/* C-3PO 기계식 스위치 */}
           <div className="bg-white border-3 border-slate-900 rounded-xl p-4 w-full max-w-[280px] sm:w-auto sm:min-w-68 shadow-[5px_5px_0px_0px_rgba(15,23,42,1)] hover:shadow-[1px_1px_0px_0px_rgba(15,23,42,1)] hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-150 flex items-center justify-between group/panel">
             <OrbitPlanet to="/bucket" label="SYS_02" />
@@ -53,7 +54,6 @@ export default function MainPage() {
               <span className="text-[11px] bg-amber-100 text-amber-700 font-bold px-1 rounded inline-block mt-1">ONLINE</span>
             </div>
           </div>
-
           {/* R2-D2 기계식 스위치 */}
           <div className="bg-white border-3 border-slate-900 rounded-xl p-4 w-full max-w-[280px] sm:w-auto sm:min-w-68 shadow-[5px_5px_0px_0px_rgba(15,23,42,1)] hover:shadow-[1px_1px_0px_0px_rgba(15,23,42,1)] hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-150 flex items-center justify-between group/panel">
             <OrbitPlanet to="/log" label="SYS_03" />
@@ -62,7 +62,6 @@ export default function MainPage() {
               <span className="text-[11px] bg-pink-100 text-pink-700 font-bold px-1 rounded inline-block mt-1">STANDBY</span>
             </div>
           </div>
-
           {/* CHEWBACCA 기계식 스위치 */}
           <div className="bg-white border-3 border-slate-900 rounded-xl p-4 w-full max-w-[280px] sm:w-auto sm:min-w-68 shadow-[5px_5px_0px_0px_rgba(15,23,42,1)] hover:shadow-[1px_1px_0px_0px_rgba(15,23,42,1)] hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-150 flex items-center justify-between group/panel">
             <OrbitPlanet to="/chewbacca" label="SYS_04" />
