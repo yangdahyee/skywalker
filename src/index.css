@@ -1,26 +1,87 @@
 @import "tailwindcss";
 
 @theme {
-  /* 1. 애니메이션 클래스 등록 (이제 animate-wipe, animate-iris로 사용 가능) */
-  --animate-starwars-wipe: starwarsWipe 0.8s linear forwards;
-  --animate-starwars-iris: starwarsIris 1s ease-in-out forwards;
+  /* ── 네이밍 레이어 ── */
+  --animate-starwars-wipe: starwarsWipe 0.8s ease-in-out forwards;
+  --animate-starwars-iris: starwarsIris 0.8s ease-in-out forwards;
+  --animate-starwars-clock: starwarsClock 1.1s linear forwards;
+  --animate-starwars-reverse-wipe: starwarsReverseWipe 0.8s ease-in-out forwards;
+  --animate-starwars-reverse-iris: starwarsReverseIris 0.8s ease-in-out forwards;
+  --animate-starwars-vertical-bar: starwarsVerticalBar 0.7s ease-in forwards;
 
-  /* 2. 키프레임 등록 */
+  /* 1. 기본 가로 와이프 (왼쪽 -> 오른쪽) */
   @keyframes starwarsWipe {
     0% {
-      clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
     }
     100% {
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
     }
   }
 
+  /* 2. 아이리스 (바깥 -> 안쪽 수축) */
   @keyframes starwarsIris {
     0% {
-      clip-path: circle(0% at 50% 50%);
-    }
-    100% {
       clip-path: circle(120% at 50% 50%);
     }
+    100% {
+      clip-path: circle(0% at 50% 50%);
+    }
   }
+
+  /* 3. 시계바늘 회전 와이프 */
+  @keyframes starwarsClock {
+    0% {
+      clip-path: polygon(50% 50%, 50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 50% 0%, 50% 0%);
+    }
+    25% {
+      clip-path: polygon(50% 50%, 100% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 0% 0%, 50% 0%);
+    }
+    50% {
+      clip-path: polygon(50% 50%, 100% 100%, 100% 100%, 100% 100%, 0% 100%, 0% 0%, 0% 0%, 50% 0%);
+    }
+    75% {
+      clip-path: polygon(50% 50%, 0% 100%, 0% 100%, 0% 100%, 0% 100%, 0% 0%, 0% 0%, 50% 0%);
+    }
+    100% {
+      clip-path: polygon(50% 50%, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%, 50% 0%);
+    }
+  }
+
+  /* 4. 리버스 와이프 (오른쪽 -> 왼쪽) */
+  @keyframes starwarsReverseWipe {
+    0% {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+    100% {
+      clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+    }
+  }
+
+  /* 6. 버티컬 바 스캔 와이프 */
+  @keyframes starwarsVerticalBar {
+    0% {
+      clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    }
+    100% {
+      clip-path: polygon(50% 0%, 50% 0%, 50% 100%, 50% 100%);
+    }
+  }
+}
+
+/* ──  유틸리티 클래스  ── */
+.sw-wipe {
+  animation: starwarsWipe 0.8s ease-in-out forwards;
+}
+.sw-iris {
+  animation: starwarsIris 0.8s ease-in-out forwards;
+}
+.sw-clock {
+  animation: starwarsClock 1.1s linear forwards;
+}
+.sw-reverse-wipe {
+  animation: starwarsReverseWipe 0.8s ease-in-out forwards;
+}
+.sw-vertical-bar {
+  animation: starwarsVerticalBar 0.7s ease-in forwards;
 }
