@@ -110,7 +110,7 @@ export default function DesktopMenu({ setIsModalOpen }: DesktopMenuProps) {
 
               {/* 링크 1: */}
               <div
-                onClick={() => handleNavigate("/timer")} // 
+                onClick={() => handleNavigate("/timer")} //
                 className="flex flex-col items-center p-3 border-2 border-dashed border-transparent hover:border-slate-900 hover:bg-[#FFFDF9] rounded-xl cursor-pointer transition-all group"
               >
                 <div className="w-11 h-11 text-[#FFC5D3] group-hover:scale-110 transition-transform filter drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]">
@@ -160,11 +160,29 @@ export default function DesktopMenu({ setIsModalOpen }: DesktopMenuProps) {
                   그로구 픽
                 </span>
               </div>
+
+              {/* 링크 4: */}
+              <div
+                onClick={() => handleNavigate("/chewbacca")}
+                className="flex flex-col items-center p-3 border-2 border-dashed border-transparent hover:border-slate-900 hover:bg-[#FFFDF9] rounded-xl cursor-pointer transition-all group"
+              >
+                <div className="w-11 h-11 text-[#c9ff6b] group-hover:scale-110 transition-transform filter drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]">
+                  <svg viewBox="0 0 100 100" className="w-full h-full">
+                    <path d="M 20,10 L 65,10 L 80,25 L 80,90 L 20,90 Z" fill="#C5B4E3" stroke="#1A1A1A" strokeWidth="4" />
+                    <polygon points="65,10 65,25 80,25" fill="#FFFDF9" stroke="#1A1A1A" strokeWidth="3" />
+                    <line x1="32" y1="45" x2="68" y2="45" stroke="#1A1A1A" strokeWidth="4" strokeLinecap="round" />
+                    <line x1="32" y1="60" x2="55" y2="60" stroke="#1A1A1A" strokeWidth="4" strokeLinecap="round" />
+                  </svg>
+                </div>
+                <span className="text-[9px] font-black mt-2 text-slate-800 bg-white border border-slate-900 px-1 py-0.5 rounded shadow-[1px_1px_0px_rgba(0,0,0,1)] text-center w-full truncate">
+                  스탑워치
+                </span>
+              </div>
             </div>
 
             <div className="bg-slate-100 border-t-2 border-slate-900 p-2 text-[8px] font-bold text-slate-500 flex justify-between px-4">
               <span>SYSTEM: GLOBAL_NAV_ACTIVE</span>
-              <span>ITEMS: 4</span>
+              <span>ITEMS: 5</span>
             </div>
           </div>
         </div>

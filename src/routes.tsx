@@ -5,6 +5,7 @@ import LukePage from "./pages/LukePage"
 import CartoonPage from "./pages/CartoonPage"
 import GroguGame from "./pages/GroguGame"
 import TransitionLayout from "./components/layout/TransitionLayout"
+import MandoPage from "./pages/MandoPage"
 
 export const appMainRoutes = [
   {
@@ -17,6 +18,7 @@ export const appMainRoutes = [
           { path: "/timer", element: <LukePage />, handle: { transition: "random" } },
           { path: "/bucket", element: <CartoonPage />, handle: { transition: "random" } },
           { path: "/log", element: <GroguGame />, handle: { transition: "random" } },
+          { path: "/chewbacca", element: <MandoPage />, handle: { transition: "random" } },
         ],
       },
     ],

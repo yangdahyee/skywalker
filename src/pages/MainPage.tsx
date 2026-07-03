@@ -41,6 +41,7 @@ export default function MainPage() {
               <span className="text-[11px] bg-cyan-100 text-cyan-700 font-bold px-1 rounded inline-block mt-1">READY</span>
             </div>
           </div>
+          
           {/* C-3PO 기계식 스위치 */}
           <div className="bg-white border-3 border-slate-900 rounded-xl p-4 w-full max-w-[280px] sm:w-auto sm:min-w-68 shadow-[5px_5px_0px_0px_rgba(15,23,42,1)] hover:shadow-[1px_1px_0px_0px_rgba(15,23,42,1)] hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-150 flex items-center justify-between group/panel">
             <OrbitPlanet to="/bucket" label="SYS_02" />
@@ -49,6 +50,7 @@ export default function MainPage() {
               <span className="text-[11px] bg-amber-100 text-amber-700 font-bold px-1 rounded inline-block mt-1">ONLINE</span>
             </div>
           </div>
+
           {/* R2-D2 기계식 스위치 */}
           <div className="bg-white border-3 border-slate-900 rounded-xl p-4 w-full max-w-[280px] sm:w-auto sm:min-w-68 shadow-[5px_5px_0px_0px_rgba(15,23,42,1)] hover:shadow-[1px_1px_0px_0px_rgba(15,23,42,1)] hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-150 flex items-center justify-between group/panel">
             <OrbitPlanet to="/log" label="SYS_03" />
@@ -57,17 +59,15 @@ export default function MainPage() {
               <span className="text-[11px] bg-pink-100 text-pink-700 font-bold px-1 rounded inline-block mt-1">STANDBY</span>
             </div>
           </div>
+
           {/* CHEWBACCA 기계식 스위치 */}
-          <a
-            href="/chewbacca"
-            className="bg-white border-3 border-slate-900 rounded-xl p-4 w-full max-w-[280px] sm:w-auto sm:min-w-68 shadow-[5px_5px_0px_0px_rgba(15,23,42,1)] hover:shadow-[1px_1px_0px_0px_rgba(15,23,42,1)] hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-150 flex items-center justify-between group/panel"
-          >
+          <div className="bg-white border-3 border-slate-900 rounded-xl p-4 w-full max-w-[280px] sm:w-auto sm:min-w-68 shadow-[5px_5px_0px_0px_rgba(15,23,42,1)] hover:shadow-[1px_1px_0px_0px_rgba(15,23,42,1)] hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-150 flex items-center justify-between group/panel">
             <OrbitPlanet to="/chewbacca" label="SYS_04" />
             <div className="text-right">
               <span className="text-s font-black block text-slate-900">CHEWBACCA_COIL</span>
               <span className="text-[11px] bg-yellow-100 text-yellow-700 font-bold px-1 rounded inline-block mt-1">ACTIVE</span>
             </div>
-          </a>
+          </div>
         </div>
       </div>
     </div>
