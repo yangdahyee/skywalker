@@ -4,7 +4,7 @@ export default function TimerPage() {
   // -----------------------------------------------------------------------
   // 커스텀 훅에서 정제된 데이터와 액션 리모컨만
   // -----------------------------------------------------------------------
-  const { timeDisplay, swRunning, actionLabel, handleAction, handleReset } = useTimerViewModel()
+  const { timeDisplay, swRunning, handleAction, handleReset } = useTimerViewModel()
 
   return (
     /**
