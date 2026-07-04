@@ -1,54 +1,10 @@
-// src/pages/TimerPage.tsx
-import { useState, useEffect, useRef } from "react"
+import { useTimerViewModel } from "../hooks/useTimerViewModel"
 
 export default function TimerPage() {
   // -----------------------------------------------------------------------
-  // [1단계] 상태 관리 (시간, 구동 여부, 재시작 인디케이터용 기록 상태)
+  // 커스텀 훅에서 정제된 데이터와 액션 리모컨만
   // -----------------------------------------------------------------------
-  const [swTime, setSwTime] = useState(0)
-  const [swRunning, setSwRunning] = useState(false)
-  const swRef = useRef<number | null>(null)
-
-  // -----------------------------------------------------------------------
-  // [2단계] 10ms 단위 인터벌 펄스 루프
-  // -----------------------------------------------------------------------
-  useEffect(() => {
-    if (swRunning) {
-      swRef.current = window.setInterval(() => {
-        setSwTime((prev) => prev + 10)
-      }, 10)
-    } else if (swRef.current) {
-      window.clearInterval(swRef.current)
-    }
-    return () => {
-      if (swRef.current) window.clearInterval(swRef.current)
-    }
-  }, [swRunning])
-
-  // -----------------------------------------------------------------------
-  // [3단계] 시간 출력 포매터 (시:분:초)
-  // -----------------------------------------------------------------------
-  const formatSw = (time: number) => {
-    const hours = Math.floor(time / 3600000)
-      .toString()
-      .padStart(2, "0")
-    const min = Math.floor((time % 3600000) / 60000)
-      .toString()
-      .padStart(2, "0")
-    const sec = Math.floor((time % 60000) / 1000)
-      .toString()
-      .padStart(2, "0")
-    return `${hours}:${min}:${sec}`
-  }
-
-  // -----------------------------------------------------------------------
-  // [4단계] 다이나믹 버튼 텍스트 핸들러 (시작 / 멈춤 / 재시작 삼단 가이드)
-  // -----------------------------------------------------------------------
-  const getActionLabel = () => {
-    if (swRunning) return "STOP"
-    if (swTime > 0) return "RESTART"
-    return "START"
-  }
+  const { timeDisplay, swRunning, actionLabel, handleAction, handleReset } = useTimerViewModel()
 
   return (
     /**
@@ -129,9 +85,9 @@ export default function TimerPage() {
       <div className="relative z-30 flex flex-col items-center justify-center text-center w-full my-auto">
         <div className="text-[22px] font-black tracking-[0.4em] text-[#2D4D5C] uppercase">BEYOND THE</div>
         <div className="relative font-mono font-black select-all">
-          <div className="text-7xl sm:text-8xl md:text-9xl lg:text-[9.5rem] tracking-tighter font-black text-[#A1BCCF] absolute top-1 left-1 opacity-70">{formatSw(swTime)}</div>
-          <div className={`text-7xl sm:text-8xl md:text-9xl lg:text-[9.5rem] tracking-tighter font-black transition-colors duration-500 ${swRunning ? "text-[#1E3E52]" : "text-[#2D4D5C]/90"}`}>
-            {formatSw(swTime)}
+          <div className="text-5xl sm:text-7xl md:text-8xl lg:text-[7.5rem] tracking-tighter font-black text-[#A1BCCF] absolute top-1 left-1 opacity-70">{timeDisplay}</div>
+          <div className={`text-5xl sm:text-7xl md:text-8xl lg:text-[7.5rem] tracking-tighter font-black transition-colors duration-500 ${swRunning ? "text-[#1E3E52]" : "text-[#2D4D5C]/90"}`}>
+            {timeDisplay}
           </div>
         </div>
 
@@ -151,7 +107,7 @@ export default function TimerPage() {
             {/* ⚡ 멀티펑셔널 액추에이터 (LAUNCH / STOP / RESTART) */}
             <div className="flex flex-col items-center space-y-2">
               <button
-                onClick={() => setSwRunning(!swRunning)}
+                onClick={handleAction}
                 className="group relative w-16 h-16 rounded-full border-2 border-[#1A3A4B] flex items-center justify-center cursor-pointer transition-all active:scale-95 bg-[#B8D4E8]/50 hover:bg-[#A6C9E2]"
               >
                 {/* 미세 내부 격자 동심원 라인 기믹 */}
@@ -175,10 +131,7 @@ export default function TimerPage() {
             {/* 시스템 초기화 유닛 (RESET) */}
             <div className="flex flex-col items-center space-y-2">
               <button
-                onClick={() => {
-                  setSwRunning(false)
-                  setSwTime(0)
-                }}
+                onClick={handleReset}
                 className="group relative w-16 h-16 rounded-full border-2 border-[#1A3A4B] flex items-center justify-center cursor-pointer transition-all active:scale-95 bg-[#B8D4E8]/50 hover:bg-[#A6C9E2]"
               >
                 <div className="absolute inset-1 border border-dashed border-[#1A3A4B]/40 rounded-full" />
