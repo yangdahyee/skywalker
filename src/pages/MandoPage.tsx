@@ -4,7 +4,7 @@ export default function TimerPage() {
   // -----------------------------------------------------------------------
   // 커스텀 훅에서 정제된 데이터와 액션 리모컨만
   // -----------------------------------------------------------------------
-  const { timeDisplay, swRunning, handleAction, handleReset } = useTimerViewModel()
+  const { timeDisplay, swRunning, actionLabel, handleAction, handleReset } = useTimerViewModel()
 
   return (
     /**
@@ -125,7 +125,7 @@ export default function TimerPage() {
                 <div className="absolute z-10 text-[#1A3A4B] font-black text-xs">{swRunning ? "‖" : "▶"}</div>
               </button>
               {/* 실시간 유동 상태에 대응해 START ➡️ STOP ➡️ RESTART 라벨 자동 교체 */}
-              <span className="text-[10px] font-black pt-1 text-[#1A3A4B] tracking-wide uppercase transition-all">{getActionLabel()}</span>
+              <span className="text-[10px] font-black pt-1 text-[#1A3A4B] tracking-wide uppercase transition-all">{actionLabel}</span>
             </div>
 
             {/* 시스템 초기화 유닛 (RESET) */}
