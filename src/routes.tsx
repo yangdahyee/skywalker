@@ -7,6 +7,7 @@ import GroguGame from "./pages/GroguGame"
 import TransitionLayout from "./components/layout/TransitionLayout"
 import MandoPage from "./pages/MandoPage"
 import SignupPage from "./pages/SignupPage"
+import FishPage from "./pages/FishPage"
 
 export const appMainRoutes = [
   {
@@ -21,6 +22,7 @@ export const appMainRoutes = [
           { path: "/log", element: <GroguGame />, handle: { transition: "random" } },
           { path: "/chewbacca", element: <MandoPage />, handle: { transition: "random" } },
           { path: "/signup", element: <SignupPage />, handle: { transition: "random" } },
+          { path: "/fish", element: <FishPage />, handle: { transition: "random" } },
         ],
       },
     ],

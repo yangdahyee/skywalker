@@ -88,7 +88,7 @@ export default function DesktopMenu({ setIsModalOpen }: DesktopMenuProps) {
               </button>
             </div>
 
-            {/* 윈도우 폴더 내부 링크 보드 (💡 아이콘 4개 정렬을 위해 grid-cols-4 로 안전 리모델링!) */}
+            {/* 윈도우 폴더 내부 링크 보드 */}
             <div className="p-4 bg-[#FDF2E9] bg-[linear-gradient(to_right,#EDD9C4_1px,transparent_1px),linear-gradient(to_bottom,#EDD9C4_1px,transparent_1px)] bg-[size:1.5rem_1.5rem] min-h-[220px] grid grid-cols-4 gap-2 items-start">
               {/* 링크 4: 메인 기지 홈 화면 이동 (/) */}
               <div
@@ -97,9 +97,7 @@ export default function DesktopMenu({ setIsModalOpen }: DesktopMenuProps) {
               >
                 <div className="w-11 h-11 text-[#FFD166] group-hover:scale-110 transition-transform filter drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]">
                   <svg viewBox="0 0 100 100" className="w-full h-full">
-                    {/* 레트로 네오-브루탈리즘 스타일 도트 집(Home) 아이콘 */}
                     <polygon points="50,12 12,46 22,46 22,88 40,88 40,60 60,60 60,88 78,88 78,46 88,46" fill="#FFD166" stroke="#1A1A1A" strokeWidth="4" strokeLinejoin="round" />
-                    {/* 굴뚝 포인트 */}
                     <rect x="66" y="22" width="8" height="14" fill="#FFD166" stroke="#1A1A1A" strokeWidth="3" />
                   </svg>
                 </div>
@@ -108,9 +106,9 @@ export default function DesktopMenu({ setIsModalOpen }: DesktopMenuProps) {
                 </span>
               </div>
 
-              {/* 링크 1: */}
+              {/* 링크 1: 디자인 참고 */}
               <div
-                onClick={() => handleNavigate("/timer")} //
+                onClick={() => handleNavigate("/timer")}
                 className="flex flex-col items-center p-3 border-2 border-dashed border-transparent hover:border-slate-900 hover:bg-[#FFFDF9] rounded-xl cursor-pointer transition-all group"
               >
                 <div className="w-11 h-11 text-[#FFC5D3] group-hover:scale-110 transition-transform filter drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]">
@@ -126,7 +124,7 @@ export default function DesktopMenu({ setIsModalOpen }: DesktopMenuProps) {
                 </span>
               </div>
 
-              {/* 링크 2: */}
+              {/* 링크 2: 간식 타임 */}
               <div
                 onClick={() => handleNavigate("/log")}
                 className="flex flex-col items-center p-3 border-2 border-dashed border-transparent hover:border-slate-900 hover:bg-[#FFFDF9] rounded-xl cursor-pointer transition-all group"
@@ -144,7 +142,7 @@ export default function DesktopMenu({ setIsModalOpen }: DesktopMenuProps) {
                 </span>
               </div>
 
-              {/* 링크 3: */}
+              {/* 링크 3: 그로구 픽 */}
               <div
                 onClick={() => handleNavigate("/bucket")}
                 className="flex flex-col items-center p-3 border-2 border-dashed border-transparent hover:border-slate-900 hover:bg-[#FFFDF9] rounded-xl cursor-pointer transition-all group"
@@ -161,14 +159,14 @@ export default function DesktopMenu({ setIsModalOpen }: DesktopMenuProps) {
                 </span>
               </div>
 
-              {/* 링크 4: */}
+              {/* 링크 4: 스탑워치 */}
               <div
                 onClick={() => handleNavigate("/chewbacca")}
                 className="flex flex-col items-center p-3 border-2 border-dashed border-transparent hover:border-slate-900 hover:bg-[#FFFDF9] rounded-xl cursor-pointer transition-all group"
               >
                 <div className="w-11 h-11 text-[#c9ff6b] group-hover:scale-110 transition-transform filter drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]">
                   <svg viewBox="0 0 100 100" className="w-full h-full">
-                    <path d="M 20,10 L 65,10 L 80,25 L 80,90 L 20,90 Z" fill="#C5B4E3" stroke="#1A1A1A" strokeWidth="4" />
+                    <path d="M 20,10 L 65,10 L 80,25 L 80,90 L 20,90 Z" fill="#c9ff6b" stroke="#1A1A1A" strokeWidth="4" />
                     <polygon points="65,10 65,25 80,25" fill="#FFFDF9" stroke="#1A1A1A" strokeWidth="3" />
                     <line x1="32" y1="45" x2="68" y2="45" stroke="#1A1A1A" strokeWidth="4" strokeLinecap="round" />
                     <line x1="32" y1="60" x2="55" y2="60" stroke="#1A1A1A" strokeWidth="4" strokeLinecap="round" />
@@ -178,11 +176,29 @@ export default function DesktopMenu({ setIsModalOpen }: DesktopMenuProps) {
                   스탑워치
                 </span>
               </div>
+
+              {/* 링크 5 : 다크 초코 물고기 */}
+              <div
+                onClick={() => handleNavigate("/fish")}
+                className="flex flex-col items-center p-3 border-2 border-dashed border-transparent hover:border-slate-900 hover:bg-[#FFFDF9] rounded-xl cursor-pointer transition-all group"
+              >
+                <div className="w-11 h-11 text-[#A7F3D0] group-hover:scale-110 transition-transform filter drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]">
+                  <svg viewBox="0 0 100 100" className="w-full h-full">
+                    <path d="M 12,50 C 30,25 65,32 82,50 C 65,68 30,75 12,50 Z" fill="#8B5A2B" stroke="#1A1A1A" strokeWidth="4" />
+                    <polygon points="82,50 94,36 90,50 94,64" fill="#603813" stroke="#1A1A1A" strokeWidth="3" strokeLinejoin="round" />
+                    <circle cx="28" cy="45" r="4" fill="#FFF" stroke="#1A1A1A" strokeWidth="2" />
+                    <circle cx="28" cy="45" r="1.5" fill="#000" />
+                  </svg>
+                </div>
+                <span className="text-[9px] font-black mt-2 text-slate-800 bg-white border border-slate-900 px-1 py-0.5 rounded shadow-[1px_1px_0px_rgba(0,0,0,1)] text-center w-full truncate">
+                  초코 피시
+                </span>
+              </div>
             </div>
 
             <div className="bg-slate-100 border-t-2 border-slate-900 p-2 text-[8px] font-bold text-slate-500 flex justify-between px-4">
               <span>SYSTEM: GLOBAL_NAV_ACTIVE</span>
-              <span>ITEMS: 5</span>
+              <span>ITEMS: 6</span>
             </div>
           </div>
         </div>
