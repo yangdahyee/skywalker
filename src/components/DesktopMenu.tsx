@@ -2,6 +2,8 @@
 import { useState, useRef, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { gsap } from "gsap"
+import { useAuthStore } from "../store/useAuthStore"
+import { useSignOut } from "../hooks/mutations/use-sign-out"
 
 interface DesktopMenuProps {
   setIsModalOpen: (isOpen: boolean) => void
@@ -11,6 +13,10 @@ export default function DesktopMenu({ setIsModalOpen }: DesktopMenuProps) {
   const [isOpen, setIsOpen] = useState(false)
   const modalRef = useRef<HTMLDivElement>(null)
   const navigate = useNavigate()
+
+  // Zustand 스토어 및 로그아웃 Mutation 바인딩
+  const { user, isLoggedIn } = useAuthStore()
+  const { mutate: handleSignOut } = useSignOut()
 
   useEffect(() => {
     setIsModalOpen(isOpen)
@@ -82,7 +88,7 @@ export default function DesktopMenu({ setIsModalOpen }: DesktopMenuProps) {
               <span>📂 SPACE_OS_HUD:\PROJECTS_MENU</span>
               <button
                 onClick={handleClose}
-                className="bg-[#FF6B6B] border-2 border-slate-900 text-slate-950 font-black text-[12px] w-6 h-6 flex items-center justify-center rounded shadow-[1.5px_1.5px_0px_rgba(0,0,0,1)] hover:bg-rose-500 active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer"
+                className="bg-[#FF6B6B] border-2 border-slate-900 text-slate-950 font-black text-[12px] w-6 h-6 flex items-center justify-between items-center justify-center rounded shadow-[1.5px_1.5px_0px_rgba(0,0,0,1)] hover:bg-rose-500 active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer"
               >
                 ×
               </button>
@@ -194,11 +200,76 @@ export default function DesktopMenu({ setIsModalOpen }: DesktopMenuProps) {
                   초코 피시
                 </span>
               </div>
+
+              {/* ---------------------------------------------------------------------- */}
+              {/* 🔒 3. 동적 인증 오버레이 파트 분기점 (로그인 유무에 따라 폴더 아이콘 완전 자동 스왑) */}
+              {/* ---------------------------------------------------------------------- */}
+              {isLoggedIn ? (
+                /* [A] 로그인 완료 상태: 닉네임 확인 및 로그아웃(탈출) 폴더 개방 */
+                <div
+                  onClick={() => {
+                    handleSignOut()
+                    setIsOpen(false)
+                  }}
+                  className="flex flex-col items-center p-3 border-2 border-dashed border-transparent hover:border-red-500 hover:bg-red-50 rounded-xl cursor-pointer transition-all group col-span-2"
+                >
+                  <div className="w-11 h-11 text-red-400 group-hover:scale-110 transition-transform filter drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]">
+                    <svg viewBox="0 0 100 100" className="w-full h-full">
+                      <rect x="20" y="15" width="60" height="70" fill="#F87171" stroke="#1A1A1A" strokeWidth="4" />
+                      <polygon points="65,50 45,30 45,42 25,42 25,58 45,58 45,70" fill="#FFF" stroke="#1A1A1A" strokeWidth="3" />
+                    </svg>
+                  </div>
+                  <span className="text-[9px] font-black mt-2 text-red-700 bg-white border border-red-500 px-2 py-0.5 rounded shadow-[1px_1px_0px_rgba(239,68,68,0.2)] text-center w-full truncate">
+                    로그아웃
+                  </span>
+                </div>
+              ) : (
+                /* [B] 비로그인 상태: 로그인과 회원가입 폴더 노출 */
+                <>
+                  <div
+                    onClick={() => handleNavigate("/login")}
+                    className="flex flex-col items-center p-3 border-2 border-dashed border-transparent hover:border-[#00e1f5] hover:bg-cyan-50 rounded-xl cursor-pointer transition-all group"
+                  >
+                    <div className="w-11 h-11 text-[#00e1f5] group-hover:scale-110 transition-transform filter drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]">
+                      <svg viewBox="0 0 100 100" className="w-full h-full">
+                        <rect x="20" y="25" width="60" height="55" fill="#00e1f5" stroke="#1A1A1A" strokeWidth="4" rx="4" />
+                        <circle cx="50" cy="45" r="8" fill="#FFF" stroke="#1A1A1A" strokeWidth="3" />
+                        <path d="M 35,72 C 35,58 65,58 65,72" fill="none" stroke="#1A1A1A" strokeWidth="4" />
+                      </svg>
+                    </div>
+                    <span className="text-[9px] font-black mt-2 text-cyan-800 bg-white border border-[#00e1f5] px-1 py-0.5 rounded shadow-[1px_1px_0px_rgba(0,0,0,1)] text-center w-full truncate">
+                      🔑 로그인
+                    </span>
+                  </div>
+
+                  <div
+                    onClick={() => handleNavigate("/signup")}
+                    className="flex flex-col items-center p-3 border-2 border-dashed border-transparent hover:border-[#ffb7d5] hover:bg-pink-50 rounded-xl cursor-pointer transition-all group"
+                  >
+                    <div className="w-11 h-11 text-[#ffb7d5] group-hover:scale-110 transition-transform filter drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]">
+                      <svg viewBox="0 0 100 100" className="w-full h-full">
+                        <path d="M 25,20 L 75,20 L 85,35 L 85,85 L 15,85 L 15,35 Z" fill="#ffb7d5" stroke="#1A1A1A" strokeWidth="4" />
+                        <line x1="50" y1="40" x2="50" y2="66" stroke="#1A1A1A" strokeWidth="5" strokeLinecap="round" />
+                        <line x1="37" y1="53" x2="63" y2="53" stroke="#1A1A1A" strokeWidth="5" strokeLinecap="round" />
+                      </svg>
+                    </div>
+                    <span className="text-[9px] font-black mt-2 text-pink-800 bg-white border border-[#ffb7d5] px-1 py-0.5 rounded shadow-[1px_1px_0px_rgba(0,0,0,1)] text-center w-full truncate">
+                      🚀 회원가입
+                    </span>
+                  </div>
+                </>
+              )}
             </div>
 
-            <div className="bg-slate-100 border-t-2 border-slate-900 p-2 text-[8px] font-bold text-slate-500 flex justify-between px-4">
-              <span>SYSTEM: GLOBAL_NAV_ACTIVE</span>
-              <span>ITEMS: 6</span>
+            {/* 하단 시스템 스태터스 바 영역에 닉네임 동적 렌더링 */}
+            <div className="bg-slate-100 border-t-2 border-slate-900 p-2 text-[9px] font-black text-slate-600 flex justify-between px-4 items-center">
+              <div>
+                STATUS: <span className="text-emerald-600">ONLINE</span>
+              </div>
+              {/* 로그인 시 닉네임이 시스템 정보창에 흐르게  */}
+              <div className="bg-slate-900 text-yellow-300 px-2 py-0.5 text-[8px] tracking-wide uppercase shadow-[1px_1px_0px_rgba(0,0,0,1)]">
+                {isLoggedIn ? `📟 PILOT: ${user?.user_metadata?.nickname || "AUTHENTICATED"}` : "📟 ANONYMOUS_DRIVE"}
+              </div>
             </div>
           </div>
         </div>

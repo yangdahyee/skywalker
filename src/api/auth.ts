@@ -15,3 +15,13 @@ export const signInWithPasswordApi = async (credentials: SignInWithPasswordCrede
 
   return response
 }
+
+
+// 로그아웃 
+export const signOutApi = async (): Promise<void> => {
+  const { error } = await supabase.auth.signOut()
+  
+  if (error) {
+    throw error
+  }
+}
