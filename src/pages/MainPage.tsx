@@ -1,10 +1,17 @@
 // src/pages/MainPage.tsx
+import { useNavigate } from "react-router-dom"
 import GroguSvg from "../assets/svg/GroguSvg"
 import DashboardCard from "../components/main/DashboardCard"
 import { appMainRoutes } from "../routes"
 import type { RouteHandleMeta } from "../routes"
+import { useAuthStore } from "../store/useAuthStore"
+import { useSignOut } from "../hooks/mutations/use-sign-out"
 
 export default function MainPage() {
+  const navigate = useNavigate()
+  const { user, isLoggedIn } = useAuthStore()
+  const { mutate: handleSignOut, isPending } = useSignOut()
+
   // appMainRoutes 구조에서 실제 하위 페이지 배열을 가져옴
   const layoutRoutes = appMainRoutes[0]?.children?.[0]?.children || []
 
@@ -33,8 +40,43 @@ export default function MainPage() {
       {/* LOWER ZONE: 하단 물리 제어 데스크 대시보드 */}
       <div className="relative z-10 w-full bg-purple-100 border-t-4 border-slate-900 py-8 px-4 md:py-16 md:px-6 shadow-[0_-8px_0px_0px_rgba(15,23,42,0.15)] pointer-events-auto flex flex-col items-center mt-auto">
         {/* 패널 중앙 제어용 장식 바 */}
-        <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[9px] font-black px-4 py-0.5 rounded-full border-2 border-slate-900 tracking-widest uppercase whitelist">
-          WELCOME TO MY SITE
+        <div className="absolute -top-4 left-1/2 -translate-x-1/2 flex items-center gap-2 md:gap-4 whitespace-nowrap z-30 select-none">
+          {isLoggedIn ? (
+            /* [A] 로그인 상태일 때: 웰컴 / 로그아웃 */
+            <>
+              <div className="bg-slate-900 text-white text-[9px] font-black px-4 py-1 border-2 border-slate-900 tracking-widest uppercase rounded-sm shadow-[2px_2px_0px_rgba(0,0,0,0.15)] flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-ping" /> {user?.user_metadata?.nickname || "ONLINE"}
+              </div>
+              <button
+                onClick={() => handleSignOut()}
+                disabled={isPending}
+                className="bg-[#FF6B6B] hover:bg-rose-500 text-slate-950 text-[9px] font-black px-3 py-1 border-2 border-slate-950 rounded-sm shadow-[2px_2px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer disabled:opacity-50"
+              >
+                {isPending ? "TERMINATING..." : "❌ 로그아웃하기"}
+              </button>
+            </>
+          ) : (
+            /* [B] 비로그인 상태일 때: 로그인 / 회원가입 */
+            <>
+              <button
+                onClick={() => navigate("/login")}
+                className="bg-[#00e1f5] hover:bg-cyan-400 text-slate-950 text-[9px] font-black px-3 py-1 border-2 border-slate-950 rounded-sm shadow-[2px_2px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer"
+              >
+                🔑 로그인하기
+              </button>
+
+              <div className="bg-slate-900 text-white text-[9px] font-black px-4 py-1 border-2 border-slate-900 tracking-widest uppercase rounded-sm shadow-[2px_2px_0px_rgba(0,0,0,0.15)]">
+                WELCOME TO MY SITE
+              </div>
+
+              <button
+                onClick={() => navigate("/signup")}
+                className="bg-[#ffb7d5] hover:bg-pink-400 text-slate-950 text-[9px] font-black px-3 py-1 border-2 border-slate-950 rounded-sm shadow-[2px_2px_0px_rgba(0,0,0,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer"
+              >
+                🚀 회원가입하기
+              </button>
+            </>
+          )}
         </div>
 
         {/* 모바일에서는 가로폭에 맞게 1줄 정렬, 태블릿 이상부터 정렬되도록 max-w 및 gap 최적화 */}

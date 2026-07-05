@@ -84,14 +84,22 @@ export default function DesktopMenu({ setIsModalOpen }: DesktopMenuProps) {
             className="bg-[#FFFDF9] border-[4px] border-slate-900 rounded-2xl p-1 shadow-[10px_10px_0px_0px_rgba(0,0,0,1)] w-[460px] flex flex-col overflow-hidden opacity-0 select-none text-slate-900"
           >
             {/* 상단 윈도우 컨트롤 헤더 */}
-            <div className="bg-slate-900 text-[#FDF2E9] text-[11px] font-black px-4 py-2 flex items-center justify-between tracking-widest">
+            <div className="bg-slate-900 text-[#FDF2E9] text-[11px] rounded-xl font-black px-4 py-2 flex items-center justify-between tracking-widest">
               <span>📂 SPACE_OS_HUD:\PROJECTS_MENU</span>
               <button
                 onClick={handleClose}
-                className="bg-[#FF6B6B] border-2 border-slate-900 text-slate-950 font-black text-[12px] w-6 h-6 flex items-center justify-between items-center justify-center rounded shadow-[1.5px_1.5px_0px_rgba(0,0,0,1)] hover:bg-rose-500 active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer"
+                className="bg-[#FF6B6B] border-2 border-slate-900  text-slate-950 font-black text-[12px] w-6 h-6 flex items-center justify-between items-center justify-center rounded shadow-[1.5px_1.5px_0px_rgba(0,0,0,1)] hover:bg-rose-500 active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer"
               >
                 ×
               </button>
+            </div>
+
+            {/* 유저 정보 / 상태 */}
+            <div className="bg-slate-100 border-b-2 border-slate-900 p-2 text-[9px] font-black text-slate-600 flex justify-between px-4 items-center select-none">
+              <div className=" text-slate-900 py-0.5 text-[11px] tracking-wide uppercase ">{isLoggedIn ? `PILOT: ${user?.user_metadata?.nickname || "AUTHENTICATED"}` : "ANONYMOUS_DRIVE"}</div>
+              <div>
+                STATUS: <span className="text-emerald-600">ONLINE</span>
+              </div>
             </div>
 
             {/* 윈도우 폴더 내부 링크 보드 */}
@@ -211,11 +219,11 @@ export default function DesktopMenu({ setIsModalOpen }: DesktopMenuProps) {
                     handleSignOut()
                     setIsOpen(false)
                   }}
-                  className="flex flex-col items-center p-3 border-2 border-dashed border-transparent hover:border-red-500 hover:bg-red-50 rounded-xl cursor-pointer transition-all group col-span-2"
+                  className="flex flex-col items-center p-3 border-2 border-dashed border-transparent hover:border-red-500 hover:bg-red-50 rounded-xl cursor-pointer transition-all group"
                 >
                   <div className="w-11 h-11 text-red-400 group-hover:scale-110 transition-transform filter drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]">
                     <svg viewBox="0 0 100 100" className="w-full h-full">
-                      <rect x="20" y="15" width="60" height="70" fill="#F87171" stroke="#1A1A1A" strokeWidth="4" />
+                      <rect x="15" y="15" width="60" height="70" fill="#F87171" stroke="#1A1A1A" strokeWidth="4" />
                       <polygon points="65,50 45,30 45,42 25,42 25,58 45,58 45,70" fill="#FFF" stroke="#1A1A1A" strokeWidth="3" />
                     </svg>
                   </div>
@@ -261,15 +269,10 @@ export default function DesktopMenu({ setIsModalOpen }: DesktopMenuProps) {
               )}
             </div>
 
-            {/* 하단 시스템 스태터스 바 영역에 닉네임 동적 렌더링 */}
-            <div className="bg-slate-100 border-t-2 border-slate-900 p-2 text-[9px] font-black text-slate-600 flex justify-between px-4 items-center">
-              <div>
-                STATUS: <span className="text-emerald-600">ONLINE</span>
-              </div>
-              {/* 로그인 시 닉네임이 시스템 정보창에 흐르게  */}
-              <div className="bg-slate-900 text-yellow-300 px-2 py-0.5 text-[8px] tracking-wide uppercase shadow-[1px_1px_0px_rgba(0,0,0,1)]">
-                {isLoggedIn ? `📟 PILOT: ${user?.user_metadata?.nickname || "AUTHENTICATED"}` : "📟 ANONYMOUS_DRIVE"}
-              </div>
+            {/* 하단 시스템 인포 영역 장식용 패널 유지 */}
+            <div className="bg-slate-900 border-t-2 rounded-xl border-slate-950 p-2 text-[8px] font-bold text-slate-500 flex justify-between px-4">
+              <span>SYSTEM: GLOBAL_NAV_ACTIVE</span>
+              <span>ITEMS: {isLoggedIn ? "7" : "8"}</span>
             </div>
           </div>
         </div>

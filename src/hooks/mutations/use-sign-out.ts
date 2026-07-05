@@ -24,7 +24,7 @@ export const useSignOut = () => {
       console.log("Cockpit System Terminated. Safe Escape Success.")
 
       // 3. 다시 로그인 관문 페이지로 전송
-      navigate("/login")
+      navigate("/")
     },
 
     // TS/ESLint 에러 대응: 묵인용 any를 제거하고 공식 AuthError 스펙 지정
