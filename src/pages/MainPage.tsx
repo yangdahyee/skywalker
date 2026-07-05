@@ -1,8 +1,16 @@
 // src/pages/MainPage.tsx
-import OrbitPlanet from "../components/main/OrbitPlanet"
 import GroguSvg from "../assets/svg/GroguSvg"
+import DashboardCard from "../components/main/DashboardCard"
+import { appMainRoutes } from "../routes"
+import type { RouteHandleMeta } from "../routes"
 
 export default function MainPage() {
+  // appMainRoutes 구조에서 실제 하위 페이지 배열을 가져옴
+  const layoutRoutes = appMainRoutes[0]?.children?.[0]?.children || []
+
+  // 그 중 handle.isMenu가 true인 라우트만 필터링
+  const menuRoutes = layoutRoutes.filter((route) => (route.handle as RouteHandleMeta)?.isMenu)
+
   return (
     // 배경판: 모바일 환경에서 대시보드가 길어질 때를 대비해 md 미만에서는 스크롤이 가능하도록 구조 보완
     <div className="relative flex min-h-screen md:h-screen w-full bg-slate-800 flex-col items-center justify-between overflow-y-auto md:overflow-hidden font-mono text-slate-900">
@@ -33,38 +41,9 @@ export default function MainPage() {
         <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 md:gap-8 max-w-7xl w-full">
           {" "}
           {/* max-w-4xl 에서 max-w-7xl로 수정 */}
-          {/* LUKE 기계식 스위치 */}
-          <div className="bg-white border-3 border-slate-900 rounded-xl p-4 w-full max-w-[280px] sm:w-auto sm:min-w-68 shadow-[5px_5px_0px_0px_rgba(15,23,42,1)] hover:shadow-[1px_1px_0px_0px_rgba(15,23,42,1)] hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-150 flex items-center justify-between group/panel">
-            <OrbitPlanet to="/timer" label="SYS_01" />
-            <div className="text-right">
-              <span className="text-s font-black block text-slate-900">LUKE_MODULE</span>
-              <span className="text-[11px] bg-cyan-100 text-cyan-700 font-bold px-1 rounded inline-block mt-1">READY</span>
-            </div>
-          </div>
-          {/* C-3PO 기계식 스위치 */}
-          <div className="bg-white border-3 border-slate-900 rounded-xl p-4 w-full max-w-[280px] sm:w-auto sm:min-w-68 shadow-[5px_5px_0px_0px_rgba(15,23,42,1)] hover:shadow-[1px_1px_0px_0px_rgba(15,23,42,1)] hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-150 flex items-center justify-between group/panel">
-            <OrbitPlanet to="/bucket" label="SYS_02" />
-            <div className="text-right">
-              <span className="text-s font-black block text-slate-900">C-3PO_CORES</span>
-              <span className="text-[11px] bg-amber-100 text-amber-700 font-bold px-1 rounded inline-block mt-1">ONLINE</span>
-            </div>
-          </div>
-          {/* R2-D2 기계식 스위치 */}
-          <div className="bg-white border-3 border-slate-900 rounded-xl p-4 w-full max-w-[280px] sm:w-auto sm:min-w-68 shadow-[5px_5px_0px_0px_rgba(15,23,42,1)] hover:shadow-[1px_1px_0px_0px_rgba(15,23,42,1)] hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-150 flex items-center justify-between group/panel">
-            <OrbitPlanet to="/log" label="SYS_03" />
-            <div className="text-right">
-              <span className="text-s font-black block text-slate-900">R2-D2_DRIVE</span>
-              <span className="text-[11px] bg-pink-100 text-pink-700 font-bold px-1 rounded inline-block mt-1">STANDBY</span>
-            </div>
-          </div>
-          {/* CHEWBACCA 기계식 스위치 */}
-          <div className="bg-white border-3 border-slate-900 rounded-xl p-4 w-full max-w-[280px] sm:w-auto sm:min-w-68 shadow-[5px_5px_0px_0px_rgba(15,23,42,1)] hover:shadow-[1px_1px_0px_0px_rgba(15,23,42,1)] hover:translate-x-[4px] hover:translate-y-[4px] transition-all duration-150 flex items-center justify-between group/panel">
-            <OrbitPlanet to="/chewbacca" label="SYS_04" />
-            <div className="text-right">
-              <span className="text-s font-black block text-slate-900">CHEWBACCA_COIL</span>
-              <span className="text-[11px] bg-yellow-100 text-yellow-700 font-bold px-1 rounded inline-block mt-1">ACTIVE</span>
-            </div>
-          </div>
+          {menuRoutes.map((route) => (
+            <DashboardCard key={route.path} routePath={route.path || "/"} meta={route.handle as RouteHandleMeta} />
+          ))}
         </div>
       </div>
     </div>

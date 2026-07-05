@@ -9,28 +9,87 @@ import MandoPage from "./pages/MandoPage"
 import SignupPage from "./pages/SignupPage"
 import FishPage from "./pages/FishPage"
 
+export interface RouteHandleMeta {
+  transition: string;
+  isMenu?: boolean;          // 메인 대시보드 카드에 노출할지 여부
+  label?: string;            // "SYS_01"
+  moduleName?: string;       // "LUKE_MODULE"
+  status?: string;           // "READY"
+  statusColorClass?: string; // "bg-cyan-100 text-cyan-700"
+}
+
 export const appMainRoutes = [
   {
-    element: <App />, // 이제 App은 외부에서 default로 가져온 컴포넌트가 됨
+    element: <App />,
     children: [
       {
         element: <TransitionLayout />,
         children: [
-          { path: "/", element: <MainPage />, handle: { transition: "random" } },
-          { path: "/design", element: <LukePage />, handle: { transition: "random" } },
-          { path: "/cartoon", element: <CartoonPage />, handle: { transition: "random" } },
-          { path: "/game", element: <GroguGame />, handle: { transition: "random" } },
-          { path: "/stopwatch", element: <MandoPage />, handle: { transition: "random" } },
-          { path: "/signup", element: <SignupPage />, handle: { transition: "random" } },
-          { path: "/fish", element: <FishPage />, handle: { transition: "random" } },
+          { 
+            path: "/", 
+            element: <MainPage />, 
+            handle: { transition: "random" } 
+          },
+          { 
+            path: "/design", 
+            element: <LukePage />, 
+            handle: { 
+              transition: "random",
+              isMenu: true,
+              label: "SYS_01",
+              moduleName: "LUKE_MODULE",
+              status: "READY",
+              statusColorClass: "bg-cyan-100 text-cyan-700"
+            } 
+          },
+          { 
+            path: "/cartoon", 
+            element: <CartoonPage />, 
+            handle: { 
+              transition: "random",
+              isMenu: true,
+              label: "SYS_02",
+              moduleName: "C-3PO_CORES",
+              status: "ONLINE",
+              statusColorClass: "bg-amber-100 text-amber-700"
+            } 
+          },
+          { 
+            path: "/game", 
+            element: <GroguGame />, 
+            handle: { 
+              transition: "random",
+              isMenu: true,
+              label: "SYS_03",
+              moduleName: "R2-D2_DRIVE",
+              status: "STANDBY",
+              statusColorClass: "bg-pink-100 text-pink-700"
+            } 
+          },
+          { 
+            path: "/stopwatch", 
+            element: <MandoPage />, 
+            handle: { 
+              transition: "random",
+              isMenu: true,
+              label: "SYS_04",
+              moduleName: "CHEWBACCA_COIL",
+              status: "ACTIVE",
+              statusColorClass: "bg-yellow-100 text-yellow-700"
+            } 
+          },
+          { 
+            path: "/signup", 
+            element: <SignupPage />, 
+            handle: { transition: "random" } // 메인 카드에는 안 나오지만 라우팅은 됨
+          },
+          { 
+            path: "/fish", 
+            element: <FishPage />, 
+            handle: { transition: "random" } 
+          },
         ],
       },
     ],
   },
 ]
-
-/*
-          // 특정 페이지는  고정하고 싶다면? 효과명을 적어두면 랜덤에서 제외
-          { path: "/log", element: <GroguGame />, handle: { transition: "doors" } }, 
-          const STARWARS_EFFECTS = ["wipe", "iris", "clock", "doors", "matrix", "bar"]
-*/
