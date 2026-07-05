@@ -108,7 +108,7 @@ export default function DesktopMenu({ setIsModalOpen }: DesktopMenuProps) {
 
               {/* 링크 1: 디자인 참고 */}
               <div
-                onClick={() => handleNavigate("/timer")}
+                onClick={() => handleNavigate("/design")}
                 className="flex flex-col items-center p-3 border-2 border-dashed border-transparent hover:border-slate-900 hover:bg-[#FFFDF9] rounded-xl cursor-pointer transition-all group"
               >
                 <div className="w-11 h-11 text-[#FFC5D3] group-hover:scale-110 transition-transform filter drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]">
@@ -126,7 +126,7 @@ export default function DesktopMenu({ setIsModalOpen }: DesktopMenuProps) {
 
               {/* 링크 2: 간식 타임 */}
               <div
-                onClick={() => handleNavigate("/log")}
+                onClick={() => handleNavigate("/game")}
                 className="flex flex-col items-center p-3 border-2 border-dashed border-transparent hover:border-slate-900 hover:bg-[#FFFDF9] rounded-xl cursor-pointer transition-all group"
               >
                 <div className="w-11 h-11 text-[#C5B4E3] group-hover:scale-110 transition-transform filter drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]">
@@ -144,7 +144,7 @@ export default function DesktopMenu({ setIsModalOpen }: DesktopMenuProps) {
 
               {/* 링크 3: 그로구 픽 */}
               <div
-                onClick={() => handleNavigate("/bucket")}
+                onClick={() => handleNavigate("/cartoon")}
                 className="flex flex-col items-center p-3 border-2 border-dashed border-transparent hover:border-slate-900 hover:bg-[#FFFDF9] rounded-xl cursor-pointer transition-all group"
               >
                 <div className="w-11 h-11 text-[#FF6B6B] group-hover:scale-110 transition-transform filter drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]">
@@ -161,7 +161,7 @@ export default function DesktopMenu({ setIsModalOpen }: DesktopMenuProps) {
 
               {/* 링크 4: 스탑워치 */}
               <div
-                onClick={() => handleNavigate("/chewbacca")}
+                onClick={() => handleNavigate("/stopwatch")}
                 className="flex flex-col items-center p-3 border-2 border-dashed border-transparent hover:border-slate-900 hover:bg-[#FFFDF9] rounded-xl cursor-pointer transition-all group"
               >
                 <div className="w-11 h-11 text-[#c9ff6b] group-hover:scale-110 transition-transform filter drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]">
