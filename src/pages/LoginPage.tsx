@@ -85,6 +85,15 @@ export default function LoginPage() {
                 {isPending ? "LOADING STAGE..." : "YES, ACCESS COCKPIT"}
               </button>
             </div>
+
+            <div className="flex items-center justify-between pt-2 px-1 text-[11px] font-bold text-slate-600 select-none">
+              <span onClick={() => navigate("/signup")} className="underline hover:text-pink-600 cursor-pointer transition-colors">
+                회원가입하기
+              </span>
+              <span onClick={() => navigate("/")} className="underline hover:text-cyan-600 cursor-pointer transition-colors">
+                메인 기지로 복귀
+              </span>
+            </div>
           </form>
         </div>
 

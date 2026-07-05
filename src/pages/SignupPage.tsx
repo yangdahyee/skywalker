@@ -1,7 +1,9 @@
 // src/pages/SignupPage.tsx
+import { useNavigate } from "react-router-dom"
 import { useSignup } from "../hooks/useSignup"
 
 export default function SignupPage() {
+  const navigate = useNavigate()
   const { email, password, confirmPassword, loading, message, setEmail, setPassword, setConfirmPassword, handleSignup } = useSignup()
 
   return (
@@ -114,6 +116,15 @@ export default function SignupPage() {
               </div>
               <div className="absolute z-10 font-black text-xs tracking-[0.25em]">{loading ? "CONFIGURING..." : "LAUNCH REGISTER"}</div>
             </button>
+          </div>
+
+          <div className="flex items-center justify-between pt-2 px-1 text-[11px] font-bold text-[#2D4D5C] select-none">
+            <span onClick={() => navigate("/login")} className="underline hover:text-[#1A3A4B] cursor-pointer transition-colors">
+              로그인하기
+            </span>
+            <span onClick={() => navigate("/")} className="underline hover:text-[#1A3A4B] cursor-pointer transition-colors">
+              메인 기지로 복귀
+            </span>
           </div>
         </form>
 
