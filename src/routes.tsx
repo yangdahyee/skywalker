@@ -8,6 +8,7 @@ import TransitionLayout from "./components/layout/TransitionLayout"
 import MandoPage from "./pages/MandoPage"
 import SignupPage from "./pages/SignupPage"
 import FishPage from "./pages/FishPage"
+import LoginPage from "./pages/LoginPage"
 
 export interface RouteHandleMeta {
   transition: string
@@ -86,6 +87,11 @@ export const appMainRoutes = [
           {
             path: "/design",
             element: <LukePage />,
+            handle: { transition: "random" },
+          },
+          {
+            path: "/login",
+            element: <LoginPage />,
             handle: { transition: "random" },
           },
         ],

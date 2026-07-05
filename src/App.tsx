@@ -20,8 +20,8 @@ function App() {
         <Outlet />
       </div>
 
-      {/* 메인페이지+회원가입 페이지에서는 안 뜨게 하려는 목적 + useLocation */}
-      {location.pathname !== "/" && location.pathname !== "/signup" && <DesktopMenu setIsModalOpen={setIsModalOpen} />}
+      {/* 메인페이지+회원가입+로그인 페이지에서는 안 뜨게 하려는 목적 + useLocation */}
+      {location.pathname !== "/" && location.pathname !== "/signup" && location.pathname !== "/login" && <DesktopMenu setIsModalOpen={setIsModalOpen} />}
 
       {/* 마우스 이펙트 레이어: pointer: fine (마우스 사용 기기) 일 때만 보이도록 하거나 컴포넌트 내부에서 처리하는 것을 권장하며, 모바일 터치 오작동을 최소화하기 위해 전반적 레이어는 유지 */}
       <div className="absolute inset-0 z-9999 pointer-events-none hidden md:block">
