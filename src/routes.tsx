@@ -10,12 +10,12 @@ import SignupPage from "./pages/SignupPage"
 import FishPage from "./pages/FishPage"
 
 export interface RouteHandleMeta {
-  transition: string;
-  isMenu?: boolean;          // 메인 대시보드 카드에 노출할지 여부
-  label?: string;            // "SYS_01"
-  moduleName?: string;       // "LUKE_MODULE"
-  status?: string;           // "READY"
-  statusColorClass?: string; // "bg-cyan-100 text-cyan-700"
+  transition: string
+  isMenu?: boolean // 메인 대시보드 카드에 노출할지 여부
+  label?: string // "SYS_01"
+  moduleName?: string // "LUKE_MODULE"
+  status?: string // "READY"
+  statusColorClass?: string // "bg-cyan-100 text-cyan-700"
 }
 
 export const appMainRoutes = [
@@ -25,68 +25,68 @@ export const appMainRoutes = [
       {
         element: <TransitionLayout />,
         children: [
-          { 
-            path: "/", 
-            element: <MainPage />, 
-            handle: { transition: "random" } 
+          {
+            path: "/",
+            element: <MainPage />,
+            handle: { transition: "random" },
           },
-          { 
-            path: "/design", 
-            element: <LukePage />, 
-            handle: { 
+          {
+            path: "/fish",
+            element: <FishPage />,
+            handle: {
               transition: "random",
               isMenu: true,
               label: "SYS_01",
-              moduleName: "LUKE_MODULE",
+              moduleName: "Fish",
               status: "READY",
-              statusColorClass: "bg-cyan-100 text-cyan-700"
-            } 
+              statusColorClass: "bg-cyan-100 text-cyan-700",
+            },
           },
-          { 
-            path: "/cartoon", 
-            element: <CartoonPage />, 
-            handle: { 
+          {
+            path: "/cartoon",
+            element: <CartoonPage />,
+            handle: {
               transition: "random",
               isMenu: true,
               label: "SYS_02",
-              moduleName: "C-3PO_CORES",
+              moduleName: "Map",
               status: "ONLINE",
-              statusColorClass: "bg-amber-100 text-amber-700"
-            } 
+              statusColorClass: "bg-amber-100 text-amber-700",
+            },
           },
-          { 
-            path: "/game", 
-            element: <GroguGame />, 
-            handle: { 
+          {
+            path: "/game",
+            element: <GroguGame />,
+            handle: {
               transition: "random",
               isMenu: true,
               label: "SYS_03",
-              moduleName: "R2-D2_DRIVE",
+              moduleName: "Game",
               status: "STANDBY",
-              statusColorClass: "bg-pink-100 text-pink-700"
-            } 
+              statusColorClass: "bg-pink-100 text-pink-700",
+            },
           },
-          { 
-            path: "/stopwatch", 
-            element: <MandoPage />, 
-            handle: { 
+          {
+            path: "/stopwatch",
+            element: <MandoPage />,
+            handle: {
               transition: "random",
               isMenu: true,
               label: "SYS_04",
-              moduleName: "CHEWBACCA_COIL",
+              moduleName: "Stopwatch",
               status: "ACTIVE",
-              statusColorClass: "bg-yellow-100 text-yellow-700"
-            } 
+              statusColorClass: "bg-yellow-100 text-yellow-700",
+            },
           },
-          { 
-            path: "/signup", 
-            element: <SignupPage />, 
-            handle: { transition: "random" } // 메인 카드에는 안 나오지만 라우팅은 됨
+          {
+            path: "/signup",
+            element: <SignupPage />,
+            handle: { transition: "random" }, // 메인 카드에는 안 나오지만 라우팅은 됨
           },
-          { 
-            path: "/fish", 
-            element: <FishPage />, 
-            handle: { transition: "random" } 
+          {
+            path: "/design",
+            element: <LukePage />,
+            handle: { transition: "random" },
           },
         ],
       },
