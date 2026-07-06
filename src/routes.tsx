@@ -9,6 +9,7 @@ import MandoPage from "./pages/MandoPage"
 import SignupPage from "./pages/SignupPage"
 import FishPage from "./pages/FishPage"
 import LoginPage from "./pages/LoginPage"
+import CommunityPage from "./pages/CommunityPage"
 
 export interface RouteHandleMeta {
   transition: string
@@ -93,6 +94,18 @@ export const appMainRoutes = [
             path: "/login",
             element: <LoginPage />,
             handle: { transition: "random" },
+          },
+          {
+            path: "/community",
+            element: <CommunityPage />,
+            handle: {
+              transition: "random",
+              isMenu: true,
+              label: "SYS_07",
+              moduleName: "HOLONET_COMMUNITY",
+              status: "MONITORING",
+              statusColorClass: "bg-emerald-100 text-emerald-700",
+            },
           },
         ],
       },
