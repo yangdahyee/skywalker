@@ -28,7 +28,7 @@ function App() {
     // 2. 스마트폰 백그라운드/앱 강제 종료 후 복귀, 토큰 자동 만료 등 모든 인증 주기 실시간 리스닝
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
+    } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session?.user) {
         setSession(session.user)
       } else {
