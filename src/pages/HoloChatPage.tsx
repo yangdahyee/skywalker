@@ -42,16 +42,7 @@ export default function HoloChatPage() {
   useEffect(() => {
     const postsSubscription = supabase
       .channel("holochat-realtime-channel")
-      .on("postgres_changes", { event: "*", schema: "public", table: "posts" }, (payload) => {
-        /* 
-             Vite 환경에서 개발 서버(npm run dev)일 때만 로그를 보여주고
-             실제 빌드 배포(Production) 상태일 때는 이 로그를 완전히 난독화/소거하여 숨김
-          */
-        if (import.meta.env.DEV) {
-          console.log("🌌 INCOMING TRANSMISSION DETECTED:", payload)
-        }
-
-        // 백그라운드에서 조용히 데이터 싱크만 칼동기화 수행
+      .on("postgres_changes", { event: "*", schema: "public", table: "posts" }, () => {
         queryClient.invalidateQueries({ queryKey: ["posts"] })
       })
       .subscribe()
