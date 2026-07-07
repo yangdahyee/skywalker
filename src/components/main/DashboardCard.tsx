@@ -1,17 +1,21 @@
 // src/components/main/DashboardCard.tsx
+import { useNavigate } from "react-router-dom"
 import OrbitPlanet from "./OrbitPlanet"
 import type { RouteHandleMeta } from "../../routes"
 
-// react-router-dom의 라우트 객체 타입을 느슨하게 정의하거나 필요한 속성만 지정
 interface DashboardCardProps {
   routePath: string
   meta: RouteHandleMeta
 }
 
 export default function DashboardCard({ routePath, meta }: DashboardCardProps) {
+  const navigate = useNavigate()
+
   return (
-    /* 모바일(기본) 크기에서는 좌우 꽉 차게 w-full! PC(sm) 모드로 진입하면 sm:w-auto 및 원래 크기 */
-    <div className="group/panel flex flex-col items-center justify-center p-3 sm:p-4 relative select-none transition-all duration-300 w-full sm:w-auto min-w-0 sm:min-w-[140px]">
+    <div
+      onClick={() => navigate(routePath || "/")}
+      className="group/panel flex flex-col items-center justify-center p-3 sm:p-4 relative select-none transition-all duration-300 w-full sm:w-auto min-w-0 sm:min-w-[140px] cursor-pointer"
+    >
       {/* 1. 배경 장식: 상시 은은한 가이드라인 (Hover 시 네온 인디고 및 인쇄 광원 증폭) */}
       <div className="absolute inset-0 border border-indigo-500/15 bg-indigo-500/[0.01] rounded-xl pointer-events-none transition-all duration-300 group-hover/panel:border-indigo-500/40 group-hover/panel:bg-indigo-500/[0.04] group-hover/panel:shadow-[inset_0_0_12px_rgba(99,102,241,0.12)]" />
 
@@ -21,7 +25,6 @@ export default function DashboardCard({ routePath, meta }: DashboardCardProps) {
         <div className="absolute inset-0 bg-indigo-500/10 rounded-full blur-xl animate-pulse duration-[4000ms] transition-all group-hover/panel:bg-indigo-400/25 group-hover/panel:blur-2xl" />
         <OrbitPlanet to={routePath || "/"} label="" />
       </div>
-
       {/* 3. 테크니컬 모듈 텍스트 레이아웃 */}
       <div className="mt-1 sm:mt-3 text-center z-10 w-full">
         {/* 센터 미세 데코 라인: 모바일에서는 숨기거나 작게 유지, PC에서만 호버 시 확장 */}
