@@ -10,6 +10,8 @@ import SignupPage from "./pages/SignupPage"
 import FishPage from "./pages/FishPage"
 import LoginPage from "./pages/LoginPage"
 import CommunityPage from "./pages/CommunityPage"
+import HoloChatPage from "./pages/HoloChatPage"
+//import LuckyTicketPage from "./pages/LuckyTicketPage"
 
 export interface RouteHandleMeta {
   transition: string
@@ -96,13 +98,30 @@ export const appMainRoutes = [
             handle: { transition: "random" },
           },
           {
+            path: "/holo",
+            element: <HoloChatPage />,
+            handle: {
+              transition: "random",
+              isMenu: true,
+              label: "SYS_04",
+              moduleName: "Intro Memo",
+              status: "ACTIVE",
+              statusColorClass: "bg-yellow-100 text-yellow-700",
+            },
+          },
+          // {
+          //   path: "/ticket",
+          //   element: <LuckyTicketPage />,
+          //   handle: { transition: "random" },
+          // },
+          {
             path: "/community",
             element: <CommunityPage />,
             handle: {
               transition: "random",
               isMenu: true,
               label: "SYS_07",
-              moduleName: "HOLONET_COMMUNITY",
+              moduleName: "Community",
               status: "MONITORING",
               statusColorClass: "bg-emerald-100 text-emerald-700",
             },
