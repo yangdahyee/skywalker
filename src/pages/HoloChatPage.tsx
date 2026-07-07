@@ -3,9 +3,12 @@ import { useNavigate } from "react-router-dom"
 import { useAuthStore } from "../store/useAuthStore"
 import { useFetchPosts } from "../hooks/queries/use-fetch-posts"
 import { useCreatePost } from "../hooks/mutations/use-posts-mutation"
+import { useQueryClient } from "@tanstack/react-query" // 캐시 강제 갱신용
+import { supabase } from "../shared/supabaseClient"
 
 export default function HoloChatPage() {
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
   const { user, isLoggedIn } = useAuthStore()
 
   // 📡 기존 방명록의 React Query 그대로 연동
@@ -31,6 +34,30 @@ export default function HoloChatPage() {
     message: "",
     type: "ALERT",
   })
+
+  /* REALTIME WEBSOCKET 
+     데이터베이스(Supabase)의 posts 테이블에 새로운 글 작성이 포착되는 소수점 밀리초 순간,
+     React Query의 사물함 캐시를 즉각 폭파시켜 새로고침 없이 실시간 싱크
+  */
+  useEffect(() => {
+    const postsSubscription = supabase
+      .channel("holochat-realtime-channel") // 채널 이름
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "posts" }, // posts 테이블의 모든 변동사항 감시
+        (payload) => {
+          console.log("🌌 INCOMING TRANSMISSION DETECTED:", payload)
+          // 변동이 감지되는 순간 ["posts"] 저장소를 강제로 만료시켜 화면을 소켓식으로 동기화
+          queryClient.invalidateQueries({ queryKey: ["posts"] })
+        },
+      )
+      .subscribe() // 실시간 체크
+
+    return () => {
+      // 페이지를 떠날 때 채널을 반납하여 기기 메모리 누수 방지
+      supabase.removeChannel(postsSubscription)
+    }
+  }, [queryClient])
 
   // 한 번 클릭당 25%씩 차오르게
   const handleRecharge = () => {
@@ -245,9 +272,7 @@ export default function HoloChatPage() {
         </form>
       </div>
 
-      {/* ===================================================================
-          하단 오버레이 영역에 방명록 테크니컬 Alert 구조 
-         =================================================================== */}
+      {/* 커스텀 Alert 오버레이 */}
       {customAlert.isOpen && (
         <div className="fixed inset-0 bg-[#1A3A4B]/60 z-9999 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-[#FFFDF9] border-2 border-[#1A3A4B] rounded-md shadow-[6px_6px_0px_rgba(26,58,75,1)] w-full max-w-sm flex flex-col overflow-hidden text-[#1A3A4B] animate-in fade-in zoom-in-95 duration-100">
@@ -280,7 +305,7 @@ export default function HoloChatPage() {
         </div>
       )}
 
-      {/* 🔮 스타일 시트 주입 */}
+      {/* 스타일 시트 */}
       <style>{`
         .glitch-screen {
           animation: glitch-anim 0.3s linear infinite;
