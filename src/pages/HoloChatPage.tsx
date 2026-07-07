@@ -57,7 +57,8 @@ export default function HoloChatPage() {
       // 페이지를 떠날 때 채널을 반납하여 기기 메모리 누수 방지
       supabase.removeChannel(postsSubscription)
     }
-  }, [queryClient])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   // 한 번 클릭당 25%씩 차오르게
   const handleRecharge = () => {
