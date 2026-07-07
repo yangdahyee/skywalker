@@ -41,17 +41,20 @@ export default function HoloChatPage() {
   */
   useEffect(() => {
     const postsSubscription = supabase
-      .channel("holochat-realtime-channel") // 채널 이름
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "posts" }, // posts 테이블의 모든 변동사항 감시
-        (payload) => {
+      .channel("holochat-realtime-channel")
+      .on("postgres_changes", { event: "*", schema: "public", table: "posts" }, (payload) => {
+        /* 
+             Vite 환경에서 개발 서버(npm run dev)일 때만 로그를 보여주고
+             실제 빌드 배포(Production) 상태일 때는 이 로그를 완전히 난독화/소거하여 숨김
+          */
+        if (import.meta.env.DEV) {
           console.log("🌌 INCOMING TRANSMISSION DETECTED:", payload)
-          // 변동이 감지되는 순간 ["posts"] 저장소를 강제로 만료시켜 화면을 소켓식으로 동기화
-          queryClient.invalidateQueries({ queryKey: ["posts"] })
-        },
-      )
-      .subscribe() // 실시간 체크
+        }
+
+        // 백그라운드에서 조용히 데이터 싱크만 칼동기화 수행
+        queryClient.invalidateQueries({ queryKey: ["posts"] })
+      })
+      .subscribe()
 
     return () => {
       // 페이지를 떠날 때 채널을 반납하여 기기 메모리 누수 방지
