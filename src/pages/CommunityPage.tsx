@@ -1,18 +1,18 @@
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuthStore } from "../store/useAuthStore"
-import { useFetchPosts } from "../hooks/queries/use-fetch-posts"
-import { useCreatePost, useDeletePost } from "../hooks/mutations/use-posts-mutation"
-import type { PostItem } from "../types/posts"
+import { useFetchBoards } from "../hooks/queries/use-fetch-boards"
+import { useCreateBoard, useDeleteBoard } from "../hooks/mutations/use-boards-mutation"
+import type { BoardItem } from "../types/boards"
 
 export default function CommunityPage() {
   const navigate = useNavigate()
   const { user, isLoggedIn } = useAuthStore()
 
   // React Query
-  const { data: posts, isLoading, isError } = useFetchPosts()
-  const { mutate: createPost, isPending: isCreating } = useCreatePost()
-  const { mutate: deletePost } = useDeletePost()
+  const { data: boards, isLoading, isError } = useFetchBoards()
+  const { mutate: createBoard, isPending: isCreating } = useCreateBoard()
+  const { mutate: deleteBoard } = useDeleteBoard()
 
   // 폼 입력값 상태 제어
   const [title, setTitle] = useState("")
@@ -58,7 +58,7 @@ export default function CommunityPage() {
 
     if (!userId) return
 
-    createPost(
+    createBoard(
       { title, content, userId, nickname },
       {
         onSuccess: () => {
@@ -103,10 +103,10 @@ export default function CommunityPage() {
             <span className="bg-[#1A3A4B] text-[#B2D0E5] px-2 py-0.5 rounded-xs font-black">SECTOR LOCK</span>
             <span className="text-emerald-800 font-black flex items-center gap-1">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span>
-              LIVE_STREAM
+              {user?.user_metadata?.nickname}
             </span>
             <span className="opacity-30 hidden sm:inline">|</span>
-            <span className="hidden sm:inline">게시글: {posts?.length || 0} 개</span>
+            <span className="hidden sm:inline">게시글: {boards?.length || 0} 개</span>
           </div>
           <button
             onClick={handleOpenModal}
@@ -129,19 +129,19 @@ export default function CommunityPage() {
           </div>
         )}
 
-        {!isLoading && !isError && posts?.length === 0 && (
+        {!isLoading && !isError && boards?.length === 0 && (
           <div className="flex flex-col items-center justify-center py-40 text-xs font-bold text-[#1A3A4B]/60 border-2 border-dashed border-[#1A3A4B]/40 rounded-xl bg-[#fffdf9]/40 backdrop-blur-xs">
             아직 메모가 없어요!
           </div>
         )}
 
         {/* 메모 그리드 */}
-        {!isLoading && !isError && posts && (
+        {!isLoading && !isError && boards && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {posts.map((post: PostItem) => {
+            {boards.map((board: BoardItem) => {
               return (
                 <div
-                  key={post.id}
+                  key={board.id}
                   className="border-2 border-[#1A3A4B] bg-[#FFFDF9] p-5 rounded-md shadow-[5px_5px_0px_rgba(26,58,75,0.8)] transition-all duration-200 flex flex-col justify-between gap-4 relative overflow-hidden transform hover:-translate-y-1 hover:shadow-[8px_8px_0px_rgba(26,58,75,0.9)]"
                 >
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-2.5 border-b-2 border-x-2 border-[#1A3A4B] bg-[#B0CDE2]/80 rounded-b-xs pointer-events-none" />
@@ -152,11 +152,11 @@ export default function CommunityPage() {
                   <div>
                     <div className="flex items-start justify-between border-b border-dashed border-[#1A3A4B]/40 pb-2.5 mb-2">
                       <div className="flex flex-col gap-0.5">
-                        <span className="text-[8px] font-black tracking-widest text-[#1A3A4B]/60 uppercase"> #{post.id}</span>
-                        <h3 className="font-black text-sm text-[#1A3A4B] tracking-tight leading-tight">{post.title}</h3>
+                        <span className="text-[8px] font-black tracking-widest text-[#1A3A4B]/60 uppercase"> #{board.id}</span>
+                        <h3 className="font-black text-sm text-[#1A3A4B] tracking-tight leading-tight">{board.title}</h3>
                       </div>
 
-                      {isLoggedIn && user?.id === post.user_id && (
+                      {isLoggedIn && user?.id === board.user_id && (
                         <button
                           onClick={() => {
                             setCustomAlert({
@@ -164,7 +164,7 @@ export default function CommunityPage() {
                               title: "⚠️ 메모 삭제",
                               message: "진짜 삭제 할까요?",
                               type: "CONFIRM",
-                              onConfirm: () => deletePost(post.id),
+                              onConfirm: () => deleteBoard(board.id),
                             })
                           }}
                           className="text-[9px] text-red-700 font-black px-1.5 py-0.5 border border-red-700 rounded-xs bg-red-50 hover:bg-red-700 hover:text-white transition-all cursor-pointer shrink-0 active:scale-95"
@@ -174,14 +174,14 @@ export default function CommunityPage() {
                       )}
                     </div>
                     {/* 쪽지 본문 내부 스크롤바도 동일하게 holonet-scrollbar 처리 */}
-                    <p className="text-xs text-[#2D4D5C] leading-relaxed font-semibold whitespace-pre-wrap min-h-[60px] max-h-[180px] overflow-y-auto holonet-scrollbar">{post.content}</p>
+                    <p className="text-xs text-[#2D4D5C] leading-relaxed font-semibold whitespace-pre-wrap min-h-[60px] max-h-[180px] overflow-y-auto holonet-scrollbar">{board.content}</p>
                   </div>
 
                   <div className="flex justify-between items-center text-[10px] text-[#1A3A4B]/70 font-bold border-t border-[#1A3A4B]/20 pt-2.5 bg-[#1A3A4B]/5 -mx-5 -mb-5 px-5 py-2">
                     <span className="truncate max-w-[120px]">
-                      PILOT: <span className="font-black text-[#1A3A4B]">{post.author_nickname}</span>
+                      PILOT: <span className="font-black text-[#1A3A4B]">{board.author_nickname}</span>
                     </span>
-                    <span className="font-mono text-[9px] tracking-tighter shrink-0 bg-[#B0CDE2]/40 px-1 py-0.5 rounded-xs">STARDATE: {new Date(post.created_at).toLocaleDateString()}</span>
+                    <span className="font-mono text-[9px] tracking-tighter shrink-0 bg-[#B0CDE2]/40 px-1 py-0.5 rounded-xs">STARDATE: {new Date(board.created_at).toLocaleDateString()}</span>
                   </div>
                 </div>
               )
