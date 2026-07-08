@@ -5,13 +5,13 @@ import { useFetchPosts } from "../hooks/queries/use-fetch-posts"
 import { useCreatePost } from "../hooks/mutations/use-posts-mutation"
 import { useQueryClient } from "@tanstack/react-query" // 캐시 강제 갱신용
 import { supabase } from "../shared/supabaseClient"
+import MenuModal from "../components/common/MenuModal"
 
 export default function HoloChatPage() {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const { user, isLoggedIn } = useAuthStore()
 
-  // 📡 기존 방명록의 React Query 그대로 연동
   const { data: posts, isLoading } = useFetchPosts()
   const { mutate: createPost, isPending: isSubmitting } = useCreatePost()
 
@@ -21,7 +21,10 @@ export default function HoloChatPage() {
   const [isGlitching, setIsGlitching] = useState(false) // 글리치 빔 연출 트리거
   const chatEndRef = useRef<HTMLDivElement>(null)
 
-  // 방명록에서 추출한 커뮤니티 전용 커스텀 알림창(Alert)
+  // 글로벌 메뉴 모달 제어용 상태
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  // 전용 커스텀 알림창(Alert)
   const [customAlert, setCustomAlert] = useState<{
     isOpen: boolean
     title: string
@@ -107,9 +110,9 @@ export default function HoloChatPage() {
 
     if (!content.trim()) return
 
-    // 송신 시 0.6초 동안 전체 스크린 치지직- 글리치
+    // 송신 시 0.8초 동안 전체 스크린 치지직- 글리치
     setIsGlitching(true)
-    setTimeout(() => setIsGlitching(false), 600)
+    setTimeout(() => setIsGlitching(false), 800)
 
     createPost(
       {
@@ -146,17 +149,23 @@ export default function HoloChatPage() {
               <div className="w-12 h-[1px] bg-[#1A3A4B]" />
             </div>
 
-            {/* R2-D2 SVG 모듈 */}
-            <svg viewBox="0 0 64 48" className="w-16 h-12 drop-shadow-[0_3px_5px_rgba(0,0,0,0.15)]">
-              <path d="M8,40 A24,24 0 0,1 56,40 Z" fill="#D2E4F2" stroke="#1A3A4B" strokeWidth="1.5" />
-              <rect x="8" y="38" width="48" height="4" fill="#A8C5DB" stroke="#1A3A4B" strokeWidth="1.5" />
-              <path d="M24,16 H40 V24 H24 Z" fill="#2D4D5C" />
-              <rect x="14" y="28" width="6" height="6" fill="#2D4D5C" />
-              <rect x="44" y="28" width="6" height="6" fill="#2D4D5C" />
-              <circle cx="32" cy="24" r="5" fill="#0f172a" stroke="#1A3A4B" strokeWidth="1" />
-              <circle cx="33" cy="23" r="1.5" fill="#B2D0E5" />
-              <circle cx="20" cy="34" r="2" className={`${isSubmitting ? "fill-blue-500 animate-pulse" : "fill-blue-900/40"}`} />
-            </svg>
+            {/* R2-D2 */}
+            <div onClick={() => setIsMenuOpen(true)} className="cursor-pointer group relative active:scale-95 transition-all duration-200" title="R2-D2 메모리 뱅크 및 메뉴 시스템 액세스">
+              <div className="absolute inset-0 bg-cyan-400/20 rounded-full filter blur-md opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-300" />
+
+              <svg viewBox="0 0 64 48" className="w-16 h-12 relative drop-shadow-[0_3px_5px_rgba(0,0,0,0.15)] group-hover:translate-y-[-2px] transition-transform duration-300">
+                <path d="M8,40 A24,24 0 0,1 56,40 Z" fill="#D2E4F2" stroke="#1A3A4B" strokeWidth="1.5" />
+                <rect x="8" y="38" width="48" height="4" fill="#A8C5DB" stroke="#1A3A4B" strokeWidth="1.5" />
+                <path d="M24,16 H40 V24 H24 Z" fill="#2D4D5C" />
+                <rect x="14" y="28" width="6" height="6" fill="#2D4D5C" />
+                <rect x="44" y="28" width="6" height="6" fill="#2D4D5C" />
+                {/* 메인 카메라 렌즈 단추 */}
+                <circle cx="32" cy="24" r="5" fill="#0f172a" stroke="#1A3A4B" strokeWidth="1" />
+                <circle cx="33" cy="23" r="1.5" fill="#B2D0E5" />
+                {/* 실시간 업로드 및 마우스 호버 시 붉은 색상 감지 레이더 반짝임 */}
+                <circle cx="20" cy="34" r="2" className={`${isSubmitting ? "fill-blue-500 animate-pulse" : "fill-blue-900/60 group-hover:animate-ping"} transition-colors`} />
+              </svg>
+            </div>
 
             {/* 우측 가이드 윙 데코 */}
             <div className="absolute left-24 top-6 hidden md:flex items-center space-x-2 opacity-40">
@@ -245,7 +254,6 @@ export default function HoloChatPage() {
             ⚡ RECHARGE POWER CORES
           </button>
         </div>
-
         {/* [우측 계기판] */}
         <form onSubmit={handleTransmit} className="flex-1 max-w-2xl w-full flex items-center gap-3">
           <input
@@ -300,12 +308,11 @@ export default function HoloChatPage() {
         </div>
       )}
 
-      {/* 스타일 시트 */}
+      {/* 글로벌 메뉴 모달 렌더링 파트 트리거 */}
+      {isMenuOpen && <MenuModal onClose={() => setIsMenuOpen(false)} />}
+
       <style>{`
-        .glitch-screen {
-          animation: glitch-anim 0.3s linear infinite;
-          filter: hue-rotate(15deg) contrast(1.1);
-        }
+        .glitch-screen { animation: glitch-anim 0.3s linear infinite; filter: hue-rotate(15deg) contrast(1.1); }
         @keyframes glitch-anim {
           0% { transform: translate(0) skew(0deg); }
           20% { transform: translate(-2px, 2px) skew(-1deg); }
@@ -314,9 +321,7 @@ export default function HoloChatPage() {
           80% { transform: translate(2px, 2px) skew(2deg); }
           100% { transform: translate(0) skew(0deg); }
         }
-        .animate-hologram-in {
-          animation: hologram-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15) forwards;
-        }
+        .animate-hologram-in { animation: hologram-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15) forwards; }
         @keyframes hologram-pop {
           0% { opacity: 0; transform: scale(0.9) translateY(10px); filter: brightness(2) blur(2px); }
           50% { filter: brightness(1.5) blur(0px); }
