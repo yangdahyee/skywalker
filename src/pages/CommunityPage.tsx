@@ -1,9 +1,11 @@
+// src/pages/CommunityPage.tsx
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuthStore } from "../store/useAuthStore"
 import { useFetchBoards } from "../hooks/queries/use-fetch-boards"
 import { useCreateBoard, useDeleteBoard } from "../hooks/mutations/use-boards-mutation"
 import type { BoardItem } from "../types/boards"
+import MenuModal from "../components/common/MenuModal"
 
 export default function CommunityPage() {
   const navigate = useNavigate()
@@ -18,6 +20,9 @@ export default function CommunityPage() {
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
   const [isModalOpen, setIsModalOpen] = useState(false)
+
+  // 모바일 및 헤더 공용 햄버거 메뉴 모달 상태 제어
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   // 커스텀 알림창(Alert/Confirm) 상태 관리
   const [customAlert, setCustomAlert] = useState<{
@@ -88,10 +93,15 @@ export default function CommunityPage() {
             <span className="font-black text-[18px] md:text-[20px] tracking-widest uppercase"> 방명록 </span>
           </div>
           <button
-            onClick={() => navigate("/")}
-            className="w-8 h-8 rounded-full border-2 border-[#1A3A4B] flex items-center justify-center font-black text-base hover:bg-red-500 hover:text-white transition-all cursor-pointer active:scale-90 bg-[#FFFDF9]/40"
+            onClick={() => setIsMenuOpen(true)}
+            className="w-9 h-9 rounded-xl border-2 border-[#1A3A4B] flex items-center justify-center font-black hover:bg-[#4ECDC4] hover:text-slate-900 transition-all cursor-pointer active:scale-90 bg-[#FFFDF9]/60 shadow-[2px_2px_0px_rgba(26,58,75,1)] group"
+            title="시스템 파일 메뉴 개방"
           >
-            ×
+            <svg viewBox="0 0 100 100" className="w-4 h-4 stroke-[#1A3A4B] stroke-[10] stroke-linecap-round group-hover:scale-110 transition-transform">
+              <line x1="15" y1="25" x2="85" y2="25" />
+              <line x1="15" y1="50" x2="85" y2="50" />
+              <line x1="15" y1="75" x2="85" y2="75" />
+            </svg>
           </button>
         </div>
       </header>
@@ -103,7 +113,7 @@ export default function CommunityPage() {
             <span className="bg-[#1A3A4B] text-[#B2D0E5] px-2 py-0.5 rounded-xs font-black">SECTOR LOCK</span>
             <span className="text-emerald-800 font-black flex items-center gap-1">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse"></span>
-              {user?.user_metadata?.nickname}
+              {user?.user_metadata?.nickname || "ANONYMOUS"}
             </span>
             <span className="opacity-30 hidden sm:inline">|</span>
             <span className="hidden sm:inline">게시글: {boards?.length || 0} 개</span>
@@ -275,7 +285,9 @@ export default function CommunityPage() {
         </div>
       )}
 
-      {/* 🎨 [스크롤바 인라인 커스텀 스타일 가동] */}
+      {/* 글로벌 메뉴 모달 렌더링 파트 트리거 */}
+      {isMenuOpen && <MenuModal onClose={() => setIsMenuOpen(false)} />}
+
       <style>{`
         /* 크롬, 사파리, 엣지 전용 하이테크 스크롤바 정밀 세팅 */
         .holonet-scrollbar::-webkit-scrollbar {
